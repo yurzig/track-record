@@ -36,17 +36,17 @@ $menuItems = [
 
         ]
     ],
-    'product' => [
-        'name' => 'Продукты',
+    'task' => [
+        'name' => 'Задачи',
         'class' => 'fa-cube',
-        'url' => 'products',
-        'role' => 'manage-shop',
+        'url' => 'tasks',
+        'role' => 'admin',
         'submenu' => [
-            'shop.categories' => [
-                'name' => 'Категории',
+            'task.projects' => [
+                'name' => 'Проекты',
                 'class' => 'fa-sitemap',
-                'url' => route('admin.shop.categories.index'),
-                'role' => 'manage-shop',
+                'url' => route('admin.tasks.projects.index'),
+                'role' => 'admin',
             ],
             'shop.products' => [
                 'name' => 'Товары',

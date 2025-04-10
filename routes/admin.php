@@ -46,6 +46,30 @@ Route::group(
 Route::group(
     [
         'middleware' => 'auth',
+        'prefix' => 'admin/tasks',
+        'as' => 'admin.tasks.',
+        'namespace' => 'App\Http\Controllers\Admin\Tasks'
+    ],
+    function () {
+        Route::get('projects/add/{parent}', 'ProjectController@add')->name('projects.add');
+        Route::post('projects/sortable', 'ProjectController@sortable')->name('projects.sortable');
+        Route::resource('projects', 'ProjectController')->except(['show', 'create'])->names('projects');
+
+//        Route::controller(PostController::class)->group(function () {
+//            Route::post('posts/columns', 'columns')->name('posts.columns');
+//            Route::post('posts/filter', 'filter')->name('posts.filter');
+//            Route::get('posts/reset', 'resetFilters')->name('posts.reset');
+//            Route::get('posts/sort', 'sort')->name('posts.sort');
+//            Route::post('posts/add-tag', 'addTag')->name('posts.add_tag');
+//            Route::post('posts/add-block', 'addBlock')->name('posts.add_block');
+//            Route::post('posts/add-img', 'addImg')->name('posts.add_img');
+//        });
+//        Route::resource('posts', 'PostController')->except(['show'])->names('posts');
+    });
+
+Route::group(
+    [
+        'middleware' => 'auth',
         'prefix' => 'admin/blog',
         'as' => 'admin.',
         'namespace' => 'App\Http\Controllers\Admin\Blog'
