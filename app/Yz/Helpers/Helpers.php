@@ -30,7 +30,7 @@ if( helperFunctionCheck('users') ){
     }
 }
 
-if( helperFunctionCheck('projects') ){
+if( helperFunctionCheck('projects') ) {
 
     /**
      * @param bool $refresh
@@ -47,6 +47,25 @@ if( helperFunctionCheck('projects') ){
             $projects_service_instance = new \App\ServicesYz\ProjectsService;
 
         return $projects_service_instance;
+    }
+}
+if( helperFunctionCheck('sections') ) {
+
+    /**
+     * @param bool $refresh
+     * @return \App\ServicesYz\SectionsService
+     */
+    function sections( bool $refresh = false ) : \App\ServicesYz\SectionsService
+    {
+        static $sections_service_instance = false;
+
+        if( $refresh )
+            $sections_service_instance = false;
+
+        if( !$sections_service_instance )
+            $sections_service_instance = new \App\ServicesYz\SectionsService;
+
+        return $sections_service_instance;
     }
 }
 

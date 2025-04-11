@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Blog\PostReviewController;
 use App\Http\Controllers\Admin\Blog\PostTagController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\Tasks\SectionController;
 
 Route::group(
     [
@@ -55,17 +56,15 @@ Route::group(
         Route::post('projects/sortable', 'ProjectController@sortable')->name('projects.sortable');
         Route::resource('projects', 'ProjectController')->except(['show', 'create'])->names('projects');
 
-//        Route::controller(PostController::class)->group(function () {
-//            Route::post('posts/columns', 'columns')->name('posts.columns');
-//            Route::post('posts/filter', 'filter')->name('posts.filter');
-//            Route::get('posts/reset', 'resetFilters')->name('posts.reset');
-//            Route::get('posts/sort', 'sort')->name('posts.sort');
-//            Route::post('posts/add-tag', 'addTag')->name('posts.add_tag');
-//            Route::post('posts/add-block', 'addBlock')->name('posts.add_block');
-//            Route::post('posts/add-img', 'addImg')->name('posts.add_img');
-//        });
-//        Route::resource('posts', 'PostController')->except(['show'])->names('posts');
-    });
+        Route::controller(SectionController::class)->group(function () {
+            Route::post('sections/columns', 'columns')->name('sections.columns');
+            Route::post('sections/filter', 'filter')->name('sections.filter');
+            Route::get('sections/reset', 'resetFilters')->name('sections.reset');
+            Route::get('sections/sort', 'sort')->name('sections.sort');
+        });
+        Route::resource('sections', 'SectionController')->except(['show'])->names('sections');
+    }
+);
 
 Route::group(
     [

@@ -48,14 +48,12 @@ $menuItems = [
                 'url' => route('admin.tasks.projects.index'),
                 'role' => 'admin',
             ],
-            'shop.products' => [
-                'name' => 'Товары',
+            'task.sections' => [
+                'name' => 'Разделы',
                 'class' => 'fa-cube',
-                'url' => '#',
-//        'url' => route('admin.shop.products.index'),
-                'role' => 'manage-shop',
+                'url' => route('admin.tasks.sections.index'),
+                'role' => 'admin',
             ],
-
         ]
     ],
     'types' => [
