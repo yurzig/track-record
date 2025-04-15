@@ -4,14 +4,14 @@
 namespace App\Http\Controllers\Admin\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tasks\Project;
+use App\Models\Tasks\TasksProject;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 
-class ProjectController extends Controller
+class TasksProjectController extends Controller
 {
 
     public function __construct()
@@ -48,7 +48,7 @@ class ProjectController extends Controller
     /**
      * Редактирование проекта (форма)
      */
-    public function edit(Project $project): View
+    public function edit(TasksProject $project): View
     {
         $projects = projects()->getTree();
 
@@ -58,7 +58,7 @@ class ProjectController extends Controller
     /**
      * Редактирование проекта (сохранить)
      */
-    public function update(Request $request, Project $project): RedirectResponse
+    public function update(Request $request, TasksProject $project): RedirectResponse
     {
 
         return projects()->update($request, $project);
@@ -68,7 +68,7 @@ class ProjectController extends Controller
      * Удаление проекта.
      */
     //todo проверка на наличие разделов и задач перед удалением проекта
-    public function destroy(Project $project): RedirectResponse
+    public function destroy(TasksProject $project): RedirectResponse
     {
 
         return projects()->delete($project);

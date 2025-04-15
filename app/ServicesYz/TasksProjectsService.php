@@ -2,21 +2,21 @@
 
 namespace App\ServicesYz;
 
-use App\Models\Tasks\Project;
+use App\Models\Tasks\TasksProject;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
-class ProjectsService
+class TasksProjectsService
 {
     /**
         Получить список проектов в виде дерева методом Tommy Lacroix
      */
     public function getTree():array
     {
-        $projects = Project::select('id', 'title', 'parent_id')
+        $projects = TasksProject::select('id', 'title', 'parent_id')
             ->orderBy('sort')
             ->toBase()
             ->get();
@@ -46,7 +46,7 @@ class ProjectsService
         $data = $request->input();
         $this->saveValidate($data);
 
-        $project = (new Project())->create($data);
+        $project = (new TasksProject())->create($data);
 
         if (!$project) {
 
@@ -59,7 +59,7 @@ class ProjectsService
     /**
         Обновить проект
      */
-    public function update(Request $request, Project $project):RedirectResponse
+    public function update(Request $request, TasksProject $project):RedirectResponse
     {
         if (empty($project)) {
 
@@ -85,7 +85,7 @@ class ProjectsService
     /**
         Удалить проект
      */
-    public function delete (Project $project): RedirectResponse
+    public function delete (TasksProject $project): RedirectResponse
     {
 
         $result = $project->delete();
@@ -129,7 +129,7 @@ class ProjectsService
     public function getForSelect()
     {
 
-        return Project::select('id', 'title')->toBase()->get();
+        return TasksProject::select('id', 'title')->toBase()->get();
     }
 
     /**
@@ -231,7 +231,7 @@ class ProjectsService
         $ids = explode(',', rtrim($data->ids, ','));
 
         foreach ($ids as $key => $id) {
-            Project::find($id)->update(['parent_id' => $parent_id, 'sort' => $key]);
+            TasksProject::find($id)->update(['parent_id' => $parent_id, 'sort' => $key]);
         }
     }
 

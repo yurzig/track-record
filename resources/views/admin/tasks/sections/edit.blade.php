@@ -1,6 +1,6 @@
 <?php
 $help = [
-    'category_id' => 'Необходимо привязать раздел к проекту',
+    'project_id' => 'Необходимо привязать раздел к проекту',
     'title' => 'Заголовок раздела',
     'sort' => 'Номер по порядку',
 ];
@@ -64,7 +64,7 @@ $page = 'admin.tasks.sections.';
                                             <div class="col-sm-8">
                                                 <select class="form-select item-status" required="required"
                                                         name="project_id">
-                                                    {!! sections()->selectTree($section->project_id) !!}
+                                                    {!! projects()->selectTree($section->project_id) !!}
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['project_id'] }}</div>

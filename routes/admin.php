@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Blog\PostReviewController;
 use App\Http\Controllers\Admin\Blog\PostTagController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\Tasks\SectionController;
+use App\Http\Controllers\Admin\Tasks\TasksSectionController;
 
 Route::group(
     [
@@ -52,17 +52,17 @@ Route::group(
         'namespace' => 'App\Http\Controllers\Admin\Tasks'
     ],
     function () {
-        Route::get('projects/add/{parent}', 'ProjectController@add')->name('projects.add');
-        Route::post('projects/sortable', 'ProjectController@sortable')->name('projects.sortable');
-        Route::resource('projects', 'ProjectController')->except(['show', 'create'])->names('projects');
+        Route::get('projects/add/{parent}', 'TasksProjectController@add')->name('projects.add');
+        Route::post('projects/sortable', 'TasksProjectController@sortable')->name('projects.sortable');
+        Route::resource('projects', 'TasksProjectController')->except(['show', 'create'])->names('projects');
 
-        Route::controller(SectionController::class)->group(function () {
+        Route::controller(TasksSectionController::class)->group(function () {
             Route::post('sections/columns', 'columns')->name('sections.columns');
             Route::post('sections/filter', 'filter')->name('sections.filter');
             Route::get('sections/reset', 'resetFilters')->name('sections.reset');
             Route::get('sections/sort', 'sort')->name('sections.sort');
         });
-        Route::resource('sections', 'SectionController')->except(['show'])->names('sections');
+        Route::resource('sections', 'TasksSectionController')->except(['show'])->names('sections');
     }
 );
 

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('tasks_projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->default(0);
+            $table->foreignId('parent_id')->default(0);
             $table->string('title');
-            $table->json('properties')->nullable();
-            $table->unsignedTinyInteger('sort')->default(0);
+            $table->unsignedTinyInteger('sort')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('tasks_projects');
     }
 };

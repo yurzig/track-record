@@ -2,7 +2,7 @@
 
 namespace App\ServicesYz;
 
-use App\Models\Tasks\Section;
+use App\Models\Tasks\TasksSection;
 use App\Yz\Services\Service;
 use App\Yz\Services\Traits\ActionAfterSaving;
 use App\Yz\Services\Traits\ACTIONS;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class SectionsService extends Service
+class TaksksSectionsService extends Service
 {
     use ACTIONS, ActionAfterSaving;
 
@@ -23,7 +23,7 @@ class SectionsService extends Service
         $filter = self::getFilters();
         $sort = self::getSort(['id', 'asc']);
 
-        $query = Section::query();
+        $query = TasksSection::query();
 
         if($filter) {
             foreach ($filter['val'] as $key => $item) {
@@ -48,7 +48,7 @@ class SectionsService extends Service
 
         $this->saveValidate($data);
 
-        $section = (new Section())->create($data);
+        $section = (new TasksSection())->create($data);
 
         if (!$section) {
 
@@ -61,7 +61,7 @@ class SectionsService extends Service
     /**
         Обновить раздел
      */
-    public function update(Request $request, Section $section): RedirectResponse
+    public function update(Request $request, TasksSection $section): RedirectResponse
     {
         if (empty($section)) {
 
@@ -88,7 +88,7 @@ class SectionsService extends Service
         Удалить раздел
      */
     //todo проверить наличие задач перед удалением раздела
-    public function delete (Section $section): RedirectResponse
+    public function delete (TasksSection $section): RedirectResponse
     {
         $item = $section;
 
@@ -121,7 +121,7 @@ class SectionsService extends Service
     public function getForSelect()
     {
 
-        return Section::select('id', 'ttitle')->toBase()->get();
+        return TasksSection::select('id', 'title')->toBase()->get();
     }
     /**
         Добавить тег

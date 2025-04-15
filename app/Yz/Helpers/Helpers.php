@@ -34,9 +34,9 @@ if( helperFunctionCheck('projects') ) {
 
     /**
      * @param bool $refresh
-     * @return \App\ServicesYz\ProjectsService
+     * @return \App\ServicesYz\TasksProjectsService
      */
-    function projects( bool $refresh = false ) : \App\ServicesYz\ProjectsService
+    function projects( bool $refresh = false ) : \App\ServicesYz\TasksProjectsService
     {
         static $projects_service_instance = false;
 
@@ -44,7 +44,7 @@ if( helperFunctionCheck('projects') ) {
             $projects_service_instance = false;
 
         if( !$projects_service_instance )
-            $projects_service_instance = new \App\ServicesYz\ProjectsService;
+            $projects_service_instance = new \App\ServicesYz\TasksProjectsService;
 
         return $projects_service_instance;
     }
@@ -53,9 +53,9 @@ if( helperFunctionCheck('sections') ) {
 
     /**
      * @param bool $refresh
-     * @return \App\ServicesYz\SectionsService
+     * @return \App\ServicesYz\TaksksSectionsService
      */
-    function sections( bool $refresh = false ) : \App\ServicesYz\SectionsService
+    function sections( bool $refresh = false ) : \App\ServicesYz\TaksksSectionsService
     {
         static $sections_service_instance = false;
 
@@ -63,7 +63,7 @@ if( helperFunctionCheck('sections') ) {
             $sections_service_instance = false;
 
         if( !$sections_service_instance )
-            $sections_service_instance = new \App\ServicesYz\SectionsService;
+            $sections_service_instance = new \App\ServicesYz\TaksksSectionsService;
 
         return $sections_service_instance;
     }

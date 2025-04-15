@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog\PostTag;
-use App\Models\Tasks\Section;
+use App\Models\Tasks\TasksSection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class SectionController extends Controller
+class TasksSectionController extends Controller
 {
     private $perPage;
 
@@ -49,7 +48,7 @@ class SectionController extends Controller
     /**
      * Редактирование раздела (форма)
      */
-    public function edit(Section $section): View
+    public function edit(TasksSection $section): View
     {
 
         return view('admin.tasks.sections.edit', compact('section'));
@@ -58,7 +57,7 @@ class SectionController extends Controller
     /**
      * Редактирование раздела (сохранение)
      */
-    public function update(Request $request, Section $section): RedirectResponse
+    public function update(Request $request, TasksSection $section): RedirectResponse
     {
 
         return sections()->update($request, $section);
@@ -68,7 +67,7 @@ class SectionController extends Controller
      * Удаление раздела.
      */
     // TODO проверить существование задач в разделе
-    public function destroy(Section $section): RedirectResponse
+    public function destroy(TasksSection $section): RedirectResponse
     {
 
         return sections()->delete($section);
