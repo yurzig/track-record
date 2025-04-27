@@ -4,7 +4,7 @@ $fields = [
     ['name' => 'Проект',           'dbName' => 'project_id', 'type' => 'select', 'op' => '=',    'class' => ''],
     ['name' => 'Наименование',     'dbName' => 'title',      'type' => 'text',   'op' => 'like', 'class' => ' class=js-title'],
     ['name' => 'Порядковый номер', 'dbName' => 'sort',       'type' => 'text',   'op' => '=',    'class' => ''],
-//    ['name' => 'Цвет',        'dbName' => 'excerpt',          'type' => 'text',   'op' => 'like', 'class' => ''],
+    ['name' => 'Цвет',             'dbName' => 'color',      'type' => 'text',   'op' => '=',    'class' => ''],
     ['name' => 'Дата создания',    'dbName' => 'created_at', 'type' => 'date',   'op' => '=',    'class' => ' class=flatpickr-input'],
     ['name' => 'Дата обновления',  'dbName' => 'updated_at', 'type' => 'date',   'op' => '=',    'class' => ' class=flatpickr-input'],
 ];

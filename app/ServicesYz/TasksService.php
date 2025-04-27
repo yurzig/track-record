@@ -2,7 +2,7 @@
 
 namespace App\ServicesYz;
 
-use App\Models\Tasks\TasksSection;
+use App\Models\Tasks\Task;
 use App\Yz\Services\Service;
 use App\Yz\Services\Traits\ActionAfterSaving;
 use App\Yz\Services\Traits\ACTIONS;
@@ -11,19 +11,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class TaksksSectionsService extends Service
+class TasksService extends Service
 {
     use ACTIONS, ActionAfterSaving;
 
+    const TYPES = [
+        'task'      => 'Задача',
+        'subtask'   => 'Подзадача',
+        'separator' => 'Разделитель',
+    ];
+
     /**
-     * Получить список разделов
+     * Получить список задач
      */
     public function getAll(?int $perPage = null): object
     {
         $filter = self::getFilters();
         $sort = self::getSort(['id', 'asc']);
 
-        $query = TasksSection::query();
+        $query = Task::query();
 
         if($filter) {
             foreach ($filter['val'] as $key => $item) {
@@ -40,15 +46,15 @@ class TaksksSectionsService extends Service
     }
 
     /**
-        Сохранение раздела
-     */
+    * Сохранение задачи
+    */
     public function store(Request $request): RedirectResponse
     {
         $data = $request->input();
 
         $this->saveValidate($data);
 
-        $section = (new TasksSection())->create($data);
+        $section = (new Task())->create($data);
 
         if (!$section) {
 
@@ -59,14 +65,14 @@ class TaksksSectionsService extends Service
     }
 
     /**
-        Обновить раздел
-     */
-    public function update(Request $request, TasksSection $section): RedirectResponse
+    * Обновить задачу
+    */
+    public function update(Request $request, Task $task): RedirectResponse
     {
-        if (empty($section)) {
+        if (empty($task)) {
 
             return back()
-                ->withErrors(['msg' => "Запись id=[{$section->id}] не найдена"])
+                ->withErrors(['msg' => "Запись id=[{$task->id}] не найдена"])
                 ->withInput();
         }
 
@@ -74,25 +80,24 @@ class TaksksSectionsService extends Service
 
         $this->saveValidate($data);
 
-        $result = $section->update($data);
+        $result = $task->update($data);
 
         if (!$result) {
 
             return back()->withErrors(['msg' => 'Ошибка сохранения'])->withInput();
         }
 
-        return $this->actionAfterSaving($section, $request);
+        return $this->actionAfterSaving($task, $request);
     }
 
     /**
-        Удалить раздел
-     */
-    //todo проверить наличие задач перед удалением раздела
-    public function delete (TasksSection $section): RedirectResponse
+    * Удалить задачу
+    */
+    public function delete (Task $task): RedirectResponse
     {
-        $item = $section;
+        $item = $task;
 
-        $result = $section->delete();
+        $result = $task->delete();
 
         if (!$result) {
 
@@ -100,45 +105,46 @@ class TaksksSectionsService extends Service
         }
 
         return redirect()
-            ->route('admin.tasks.sections.index')
-            ->with(['success' => "Удалена запись id[$item->id] - $item->ttitle"]);
+            ->route('admin.tasks.task.index')
+            ->with(['success' => "Удалена запись id[$item->id] - $item->title"]);
     }
 
     /**
-        Валидация
-     */
-    public function saveValidate( array $data ): void
+    * Валидация
+    */
+    public function saveValidate(array $data): void
     {
-        Validator::make( $data, [
+        Validator::make($data, [
             'title' => 'required|max:200',
             'project_id' => 'required|integer',
         ])->validate();
     }
 
     /**
-     * Получить список разделов для вывода в выпадающем списке
+     * Получить список задач для вывода в выпадающем списке
      */
-    public function getForSelect()
+    public function getForSelect(): array
     {
 
-        return TasksSection::select('id', 'title')->toBase()->get();
+        return Task::select('id', 'title')->toBase()->get();
     }
+
     /**
-        Добавить тег
-     */
-//    public function addTag(string $tag)
-//    {
-//        $data = ['tag' => $tag];
-//
-//        $this->saveValidate($data);
-//
-//        $result = (new PostTag())->create($data);
-//
-//        if (!$result) {
-//
-//            return 'Ошибка сохранения';
-//        }
-//
-//        return 'ok';
-//    }
+    * Получить массив типов
+    */
+    public function getTypes(): array
+    {
+
+        return self::TYPES;
+    }
+
+    /**
+    * Получить тип
+    */
+    public function getType($type): string
+    {
+
+        return self::TYPES[$type];
+    }
+
 }

@@ -74,8 +74,19 @@ $page = 'admin.tasks.sections.';
                                             <div class="col-sm-8">
                                                 <input class="form-control" type="text"
                                                        name="title"
-                                                       placeholder="Заголовок статьи"
+                                                       placeholder="Заголовок раздела"
                                                        value="{{ old('title', $section->title) }}"
+                                                       required="required">
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
+                                        </div>
+                                        <div class="form-group row mandatory">
+                                            <label class="col-sm-4 form-control-label">Цвет</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" type="color"
+                                                       name="properties[color]"
+                                                       placeholder="Цвет раздела"
+                                                       value="{{ old('properties[color]', $section->color) }}"
                                                        required="required">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['title'] }}</div>

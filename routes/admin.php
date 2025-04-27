@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Blog\PostController;
 use App\Http\Controllers\Admin\Blog\PostReviewController;
 use App\Http\Controllers\Admin\Blog\PostTagController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\Tasks\TaskController;
 use App\Http\Controllers\Admin\Tasks\TasksSectionController;
 
 Route::group(
@@ -63,6 +64,14 @@ Route::group(
             Route::get('sections/sort', 'sort')->name('sections.sort');
         });
         Route::resource('sections', 'TasksSectionController')->except(['show'])->names('sections');
+
+        Route::controller(TaskController::class)->group(function () {
+            Route::post('tasks/columns', 'columns')->name('tasks.columns');
+            Route::post('tasks/filter', 'filter')->name('tasks.filter');
+            Route::get('tasks/reset', 'resetFilters')->name('tasks.reset');
+            Route::get('tasks/sort', 'sort')->name('tasks.sort');
+        });
+        Route::resource('tasks', 'TaskController')->except(['show'])->names('tasks');
     }
 );
 
