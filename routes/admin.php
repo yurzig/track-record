@@ -49,21 +49,21 @@ Route::group(
     [
         'middleware' => 'auth',
         'prefix' => 'admin/tasks',
-        'as' => 'admin.tasks.',
+        'as' => 'admin.',
         'namespace' => 'App\Http\Controllers\Admin\Tasks'
     ],
     function () {
-        Route::get('projects/add/{parent}', 'TasksProjectController@add')->name('projects.add');
-        Route::post('projects/sortable', 'TasksProjectController@sortable')->name('projects.sortable');
-        Route::resource('projects', 'TasksProjectController')->except(['show', 'create'])->names('projects');
+        Route::get('projects/add/{parent}', 'TasksProjectController@add')->name('tasks.projects.add');
+        Route::post('projects/sortable', 'TasksProjectController@sortable')->name('tasks.projects.sortable');
+        Route::resource('projects', 'TasksProjectController')->except(['show', 'create'])->names('tasks.projects');
 
         Route::controller(TasksSectionController::class)->group(function () {
-            Route::post('sections/columns', 'columns')->name('sections.columns');
-            Route::post('sections/filter', 'filter')->name('sections.filter');
-            Route::get('sections/reset', 'resetFilters')->name('sections.reset');
-            Route::get('sections/sort', 'sort')->name('sections.sort');
+            Route::post('sections/columns', 'columns')->name('tasks.sections.columns');
+            Route::post('sections/filter', 'filter')->name('tasks.sections.filter');
+            Route::get('sections/reset', 'resetFilters')->name('tasks.sections.reset');
+            Route::get('sections/sort', 'sort')->name('tasks.sections.sort');
         });
-        Route::resource('sections', 'TasksSectionController')->except(['show'])->names('sections');
+        Route::resource('sections', 'TasksSectionController')->except(['show'])->names('tasks.sections');
 
         Route::controller(TaskController::class)->group(function () {
             Route::post('tasks/columns', 'columns')->name('tasks.columns');

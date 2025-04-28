@@ -51,17 +51,17 @@ class TasksService extends Service
     public function store(Request $request): RedirectResponse
     {
         $data = $request->input();
-
+//dd($data);
         $this->saveValidate($data);
 
-        $section = (new Task())->create($data);
+        $task = (new Task())->create($data);
 
-        if (!$section) {
+        if (!$task) {
 
             return back()->withErrors(['msg' => 'Ошибка сохранения'])->withInput();
         }
 
-        return $this->actionAfterSaving($section, $request);
+        return $this->actionAfterSaving($task, $request);
     }
 
     /**

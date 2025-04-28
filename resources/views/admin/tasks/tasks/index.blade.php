@@ -48,7 +48,7 @@ if (in_array('section_id',$columns)) {
 }
 
 $pageName = 'Задачи';
-$page = 'admin.tasks.tasks.';
+$page = 'admin.tasks.';
 ?>
 @extends('layouts.admin')
 

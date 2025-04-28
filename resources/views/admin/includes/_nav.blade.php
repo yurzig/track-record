@@ -57,7 +57,7 @@ $menuItems = [
             'tasks' => [
                 'name' => 'Задачи',
                 'class' => 'fa-cube',
-                'url' => route('admin.tasks.tasks.index'),
+                'url' => route('admin.tasks.index'),
                 'role' => 'admin',
             ],
         ]

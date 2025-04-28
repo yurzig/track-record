@@ -3,16 +3,18 @@ $help = [
     'project_id' => 'Необходимо привязать задачу к проекту',
     'section_id' => 'Необходимо привязать задачу к разделу',
     'title' => 'Заголовок задачи',
-    'description' => 'Описние задачи',
+    'description' => 'Описание задачи',
     'date_start' => 'Дата начала выполнения задачи',
     'date_end' => 'Дата окончания задачи',
     'in_work' => 'Задача выполняется или завершена',
     'type' => 'Тип: задача, разделитель или подзадача',
+    'comment' => 'Комментарий задачи',
+    'hide_until' => 'Дата, до которой может быть скрыта задача',
     'sort' => 'Номер по порядку',
 ];
 
 $pageName = 'Новая задача';
-$page = 'admin.tasks.tasks.';
+$page = 'admin.tasks.';
 ?>
 
 @extends('layouts.admin')
@@ -126,6 +128,7 @@ $page = 'admin.tasks.tasks.';
                                                 <input type="hidden" name="in_work" value="0">
                                                 <input type="checkbox" name="in_work"
                                                            class="form-control form-check-input"
+                                                           checked
                                                            value="1">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['in_work'] }}</div>
@@ -133,8 +136,7 @@ $page = 'admin.tasks.tasks.';
                                         <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Тип</label>
                                             <div class="col-sm-8">
-                                                <select name="section_id" class="form-select item-status"
-                                                        required="required">
+                                                <select name="type" class="form-select item-status" required="required">
                                                     @foreach (tasks()->getTypes() as $key => $type)
                                                         <option value={{ $key }}>{{ $type }}</option>
                                                     @endforeach

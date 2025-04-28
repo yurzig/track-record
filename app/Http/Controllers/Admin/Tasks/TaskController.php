@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tasks\TasksSection;
+use App\Models\Tasks\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -37,40 +37,40 @@ class TaskController extends Controller
     }
 
     /**
-     * Создание раздела (сохранение)
+     * Создание задачи (сохранение)
      */
     public function store(Request $request): RedirectResponse
     {
 
-        return sections()->store($request);
+        return tasks()->store($request);
     }
 
     /**
-     * Редактирование раздела (форма)
+     * Редактирование задачи (форма)
      */
-    public function edit(TasksSection $section): View
+    public function edit(Task $task): View
     {
 
-        return view('admin.tasks.sections.edit', compact('section'));
+        return view('admin.tasks.tasks.edit', compact('task'));
     }
 
     /**
-     * Редактирование раздела (сохранение)
+     * Редактирование задачи (сохранение)
      */
-    public function update(Request $request, TasksSection $section): RedirectResponse
+    public function update(Request $request, Task $task): RedirectResponse
     {
 
-        return sections()->update($request, $section);
+        return tasks()->update($request, $task);
     }
 
     /**
      * Удаление раздела.
      */
     // TODO проверить существование задач в разделе
-    public function destroy(TasksSection $section): RedirectResponse
+    public function destroy(Task $task): RedirectResponse
     {
 
-        return sections()->delete($section);
+        return tasks()->delete($task);
     }
 
     /**
@@ -78,9 +78,9 @@ class TaskController extends Controller
      */
     public function columns(Request $request): RedirectResponse
     {
-        Sections()->setColumns($request->fields);
+        tasks()->setColumns($request->fields);
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.tasks.index');
     }
 
     /**
@@ -88,9 +88,9 @@ class TaskController extends Controller
      */
     private function filter(Request $request): RedirectResponse
     {
-        sections()->setFilters($request->filters);
+        tasks()->setFilters($request->filters);
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.tasks.index');
     }
 
     /**
@@ -98,9 +98,9 @@ class TaskController extends Controller
      */
     public function filtersReset(): RedirectResponse
     {
-        sections()->filtersReset();
+        tasks()->filtersReset();
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.tasks.index');
     }
 
     /**
@@ -108,9 +108,9 @@ class TaskController extends Controller
      */
     public function sort(Request $request): RedirectResponse
     {
-        sections()->setSort($request);
+        tasks()->setSort($request);
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.tasks.index');
     }
 
 }

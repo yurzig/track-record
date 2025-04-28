@@ -1,12 +1,20 @@
 <?php
 $help = [
-    'project_id' => 'Необходимо привязать раздел к проекту',
-    'title' => 'Заголовок раздела',
+    'project_id' => 'Необходимо привязать задачу к проекту',
+    'section_id' => 'Необходимо привязать задачу к разделу',
+    'title' => 'Заголовок задачи',
+    'description' => 'Описание задачи',
+    'date_start' => 'Дата начала выполнения задачи',
+    'date_end' => 'Дата окончания задачи',
+    'in_work' => 'Задача выполняется или завершена',
+    'type' => 'Тип: задача, разделитель или подзадача',
+    'comment' => 'Комментарий задачи',
+    'hide_until' => 'Дата, до которой может быть скрыта задача',
     'sort' => 'Номер по порядку',
 ];
 
 $pageName = 'Редактирование задачи';
-$page = 'admin.tasks.tasks.';
+$page = 'admin.tasks.';
 ?>
 
 @extends('layouts.admin')
@@ -18,14 +26,14 @@ $page = 'admin.tasks.tasks.';
 @section('title', $pageName)
 
 @section('header-block')
-    <span>{{ $pageName }}: ({{ $section->id }}) {{ $section->title }}</span>
+    <span>{{ $pageName }}: ({{ $task->id }}) {{ $task->title }}</span>
     @include('admin.includes._header_block')
 @endsection
 
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-2 mb-3">
         <form id="edit-form" class="item w-100" method="POST" enctype="multipart/form-data"
-              action="{{ route($page . 'update', $section) }}" novalidate>
+              action="{{ route($page . 'update', $task) }}" novalidate>
             @csrf
             @method('PATCH')
 
@@ -62,34 +70,105 @@ $page = 'admin.tasks.tasks.';
                                         <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Проект</label>
                                             <div class="col-sm-8">
-                                                <select class="form-select item-status" required="required"
-                                                        name="project_id">
-                                                    {!! projects()->selectTree($section->project_id) !!}
+                                                <select name="project_id" class="form-select item-status"
+                                                        required="required">
+                                                    {!! projects()->selectTree($task->project_id) !!}
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['project_id'] }}</div>
                                         </div>
                                         <div class="form-group row mandatory">
+                                            <label class="col-sm-4 form-control-label">Раздел</label>
+                                            <div class="col-sm-8">
+                                                <select name="section_id" class="form-select item-status"
+                                                        required="required">
+                                                    @foreach (sections()->getForSelect() as $section)
+                                                        <option value={{ $section->id }} @selected($task->section_id === $section->id)>{{ $section->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['section_id'] }}</div>
+                                        </div>
+
+                                        <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Заголовок</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text"
-                                                       name="title"
-                                                       placeholder="Заголовок раздела"
-                                                       value="{{ old('title', $section->title) }}"
-                                                       required="required">
+                                                <input type="text" name="title" class="form-control"
+                                                       value="{{ old('title', $task->title) }}"
+                                                       required="required"
+                                                       placeholder="Заголовок раздела">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
                                         </div>
-                                        <div class="form-group row mandatory">
-                                            <label class="col-sm-4 form-control-label">Цвет</label>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Описание</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="color"
-                                                       name="properties[color]"
-                                                       placeholder="Цвет раздела"
-                                                       value="{{ old('properties[color]', $section->color) }}"
-                                                       required="required">
+                                                <textarea name="description" class="summernote form-control item-content">
+                                                    {{ old('description', $task->description) }}
+                                                </textarea>
                                             </div>
-                                            <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
+                                            <div class="col-sm-12 help-text">{{ $help['description'] }}</div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Дата начала выполнения</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="date_start"
+                                                       class="form-control flatpickr-input"
+                                                       value="{{ old('date_start', $task->date_start) }}"
+                                                       placeholder="Начало выполнения задачи">
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['date_start'] }}</div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Дата окончания выполнения</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="date_end"
+                                                       class="form-control flatpickr-input"
+                                                       value="{{ old('date_end', $task->date_end) }}"
+                                                       placeholder="Окончание задачи">
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['date_end'] }}</div>
+                                        </div>
+                                        <div class="form-group row mandatory">
+                                            <label class="col-sm-4 form-control-label">Активна</label>
+                                            <div class="col-sm-8 form-check form-switch">
+                                                <input type="hidden" name="in_work" value="0">
+                                                <input type="checkbox" name="in_work"
+                                                       class="form-control form-check-input"
+                                                       @checked($task->in_work)
+                                                       value="1">
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['in_work'] }}</div>
+                                        </div>
+                                        <div class="form-group row mandatory">
+                                            <label class="col-sm-4 form-control-label">Тип</label>
+                                            <div class="col-sm-8">
+                                                <select name="type" class="form-select item-status" required="required">
+                                                    @foreach (tasks()->getTypes() as $key => $type)
+                                                        <option value={{ $key }} @selected($task->type === $key)>{{ $type }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['type'] }}</div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Комментарий</label>
+                                            <div class="col-sm-8">
+                                                <textarea name="comment" class="summernote form-control item-content">
+                                                    {{ old('comment', $task->comment) }}
+                                                </textarea>
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['comment'] }}</div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-4 form-control-label">Скрыть задачу до даты</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" name="hide_until"
+                                                       class="form-control flatpickr-input"
+                                                       value="{{ old('hide_until', $task->hide_until) }}"
+                                                       placeholder="Не показывать задачу до">
+                                            </div>
+                                            <div class="col-sm-12 help-text">{{ $help['hide_until'] }}</div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 form-control-label">Порядковый номер</label>
@@ -97,7 +176,7 @@ $page = 'admin.tasks.tasks.';
                                                 <input class="form-control" type="text"
                                                        name="sort"
                                                        placeholder="Номер по порядку"
-                                                       value="{{ old('sort', $section->sort) }}">
+                                                       value="{{ old('sort', $task->sort) }}">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['sort'] }}</div>
                                         </div>
@@ -112,13 +191,13 @@ $page = 'admin.tasks.tasks.';
                                 <div class="form-group row">
                                     <label class="col-sm-4 form-control-label">Дата создания</label>
                                     <div class="col-sm-8">
-                                        {{ $section->created_at }}
+                                        {{ $task->created_at }}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 form-control-label">Дата обновления</label>
                                     <div class="col-sm-8">
-                                        {{ $section->updated_at }}
+                                        {{ $task->updated_at }}
                                     </div>
                                 </div>
                             </div>
@@ -133,6 +212,6 @@ $page = 'admin.tasks.tasks.';
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/Sortable.min.js') }}" defer></script>
-    @vite('resources/js/admin/sections.js')
+{{--    <script src="{{ asset('js/Sortable.min.js') }}" defer></script>--}}
+{{--    @vite('resources/js/admin/sections.js')--}}
 @endpush
