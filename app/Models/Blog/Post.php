@@ -11,6 +11,9 @@ class Post extends Model
 {
     use SoftDeletes;
 
+    public int $id;
+    public string $title;
+
     protected $fillable = [
         'category_id',
         'user_id',
@@ -30,14 +33,18 @@ class Post extends Model
         'content' => 'array',
     ];
 
-    // к посту привязываем отзывы
+    /**
+     * К посту привязываем отзывы
+     */
     public function reviews(): HasMany
     {
 
         return $this->hasMany(PostReview::class,'post_id', 'id');
     }
 
-    // Добавляем в модель уникальное поле slug
+    /**
+     * Добавляем в модель уникальное поле slug
+     */
     protected function slug(): Attribute
     {
 

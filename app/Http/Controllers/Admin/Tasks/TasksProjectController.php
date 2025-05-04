@@ -28,7 +28,7 @@ class TasksProjectController extends Controller
     }
 
     /**
-     * Добавление нового проекта(форма)
+     * Добавление нового проекта (форма)
      */
     public function add($parent): View
     {
@@ -37,7 +37,7 @@ class TasksProjectController extends Controller
     }
 
     /**
-     * Добавление нового проекта(сохранить)
+     * Добавление нового проекта (сохранить)
      */
     public function store(Request $request): RedirectResponse
     {

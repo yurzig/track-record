@@ -7,11 +7,12 @@ use App\Models\Blog\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    private $perPage;
+    private int $perPage;
 
     public function __construct()
     {
@@ -29,7 +30,7 @@ class PostController extends Controller
     }
 
     /**
-     * Создание поста(форма)
+     * Создание поста (форма)
      */
     public function create(): View
     {
@@ -38,7 +39,7 @@ class PostController extends Controller
     }
 
     /**
-     * Создание поста(сохранение)
+     * Создание поста (сохранение)
      */
     public function store(Request $request): RedirectResponse
     {
@@ -47,15 +48,16 @@ class PostController extends Controller
     }
 
     /**
-     * Редактирование поста(форма)
+     * Редактирование поста (форма)
      */
     public function edit(Post $post): View
     {
+
         return view('admin.blog.posts.edit', compact('post'));
     }
 
     /**
-     * Редактирование поста(сохранение)
+     * Редактирование поста (сохранение)
      */
     public function update(Request $request, Post $post): RedirectResponse
     {
@@ -114,6 +116,7 @@ class PostController extends Controller
 
     /**
      * Добавление тега по запросу ajax
+     * @throws ValidationException
      */
     public function addTag(Request $request): JsonResponse
     {
@@ -123,18 +126,18 @@ class PostController extends Controller
     }
 
     /**
-        Добавить блок текста
+     * Добавить блок текста
      */
-    public function addBlock(Request $request):View
+    public function addBlock(Request $request): View
     {
 
         return posts()->addBlock($request);
     }
 
     /**
-        Добавить картинку в блок
+     * Добавить картинку в блок
      */
-    public function addImg( Request $request )
+    public function addImg( Request $request ): JsonResponse
     {
         $folderPath = public_path('upload\\');
         $image_parts = explode(";base64,", $request->image);

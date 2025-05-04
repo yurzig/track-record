@@ -75,10 +75,9 @@ $page = 'admin.post.categories.';
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-2 form-control-label">Название</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="text"
-                                                           name="title"
-                                                           placeholder="Название категории"
+                                                    <input type="text" name="title" class="form-control"
                                                            value="{{ old('title', $category->title) }}"
+                                                           placeholder="Название категории"
                                                            required="required">
                                                 </div>
                                                 <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
@@ -86,17 +85,16 @@ $page = 'admin.post.categories.';
                                             <div class="form-group row">
                                                 <label class="col-sm-2 form-control-label">Url</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="text"
-                                                           name="slug"
-                                                           placeholder="Уникальный идентификатор"
-                                                           value="{{ old('slug', $category->slug) }}">
+                                                    <input type="text" name="slug" class="form-control"
+                                                           value="{{ old('slug', $category->slug) }}"
+                                                           placeholder="Уникальный идентификатор">
                                                 </div>
                                                 <div class="col-sm-12 help-text">{{ $help['slug'] }}</div>
                                             </div>
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-2 form-control-label">Родитель</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-select" required="required" name="parent_id">
+                                                    <select name="parent_id" class="form-select" required="required">
                                                         <option value="0">0-й уровень</option>
                                                         {!! postCategories()->selectTree($category->parent_id) !!}
                                                     </select>

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 class PostReviewsService extends Service
@@ -29,22 +30,22 @@ class PostReviewsService extends Service
         $sort = self::getSort(['status', 'asc']);
 
         $query = PostReview::query();
-        if($filter) {
+        if ($filter) {
             foreach ($filter['val'] as $key => $item) {
                 if (!is_null($item)) {
                     $query->where($key, $filter['op'][$key], $filter['op'][$key] === 'like' ? "%$item%" : $item);
                 }
             }
         }
-        $result = $query
+
+        return $query
             ->orderBy($sort[0], $sort[1])
             ->paginate($perPage);
-
-        return $result;
     }
 
     /**
-        Сохранение отзыва
+     * Сохранение отзыва
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -69,7 +70,8 @@ class PostReviewsService extends Service
     }
 
     /**
-        Обновить отзыв поста
+     * Обновить отзыв поста
+     * @throws ValidationException
      */
     public function update(Request $request, PostReview $review): RedirectResponse
     {
@@ -96,7 +98,7 @@ class PostReviewsService extends Service
     }
 
     /**
-        Удалить отзыв поста
+     * Удалить отзыв поста
      */
     public function delete (PostReview $review): RedirectResponse
     {
@@ -115,7 +117,8 @@ class PostReviewsService extends Service
     }
 
     /**
-        Валидация
+     * Валидация
+     * @throws ValidationException
      */
     public function saveValidate( array $data ): void
     {
@@ -130,15 +133,16 @@ class PostReviewsService extends Service
         ])->validate();
     }
 
-    /*
+    /**
      * Получить статусы отзыва
-    */
+     */
     public function getStatuses(): array
     {
         return self::STATUS;
     }
-    /*
-     * Получить статус отзыва
+
+    /**
+    * Получить статус отзыва
     */
     public function getStatus(int $id): string
     {

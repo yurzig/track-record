@@ -9,6 +9,7 @@ use App\Yz\Services\Traits\ACTIONS;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 class PostTagsService extends Service
@@ -24,22 +25,21 @@ class PostTagsService extends Service
         $sort = self::getSort(['id', 'asc']);
 
         $query = PostTag::query();
-        if($filter) {
+        if ($filter) {
             foreach ($filter['val'] as $key => $item) {
                 if (!is_null($item)) {
                     $query->where($key, $filter['op'][$key], $filter['op'][$key] === 'like' ? "%$item%" : $item);
                 }
             }
         }
-        $result = $query
+
+        return $query
             ->orderBy($sort[0], $sort[1])
             ->paginate($perPage);
-
-        return $result;
     }
 
     /**
-        Сохранение тега
+     * Сохранение тега
      */
     public function store(Request $request): RedirectResponse
     {
@@ -58,8 +58,8 @@ class PostTagsService extends Service
     }
 
     /**
-        Обновить тег
-     */
+    * Обновить тег
+    */
     public function update(Request $request, PostTag $tag): RedirectResponse
     {
         if (empty($tag)) {
@@ -84,8 +84,8 @@ class PostTagsService extends Service
     }
 
     /**
-        Удалить тег
-     */
+    * Удалить тег
+    */
     public function delete (PostTag $tag): RedirectResponse
     {
         $item = $tag;
@@ -103,8 +103,9 @@ class PostTagsService extends Service
     }
 
     /**
-        Валидация
-     */
+    * Валидация
+    * @throws ValidationException
+    */
     public function saveValidate( array $data ): void
     {
         Validator::make( $data, [
@@ -120,10 +121,12 @@ class PostTagsService extends Service
 
         return PostTag::select('id', 'tag')->toBase()->get();
     }
+
     /**
-        Добавить тег
+     * Добавить тег
+     * @throws ValidationException
      */
-    public function addTag(string $tag)
+    public function addTag(string $tag): string
     {
         $data = ['tag' => $tag];
 

@@ -10,6 +10,10 @@ class TasksSection extends Model
 {
     use SoftDeletes;
 
+    public int $id;
+    public string $title;
+    public mixed $properties;
+
     protected $casts = [
         'properties' => 'json',
     ];

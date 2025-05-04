@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Yz\Services\Service;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class PostsService extends Service
@@ -25,22 +26,21 @@ class PostsService extends Service
         $sort = self::getSort(['id', 'asc']);
 
         $query = Post::query();
-        if($filter) {
+        if ($filter) {
             foreach ($filter['val'] as $key => $item) {
                 if (!is_null($item)) {
                     $query->where($key, $filter['op'][$key], $filter['op'][$key] === 'like' ? "%$item%" : $item);
                 }
             }
         }
-        $result = $query
+
+        return $query
             ->orderBy($sort[0], $sort[1])
             ->paginate($perPage);
-
-        return $result;
     }
 
     /**
-        Сохранение поста
+     * Сохранение поста
      */
     public function store(Request $request): RedirectResponse
     {
@@ -64,9 +64,9 @@ class PostsService extends Service
     }
 
      /**
-        Обновить пост
-     */
-    public function update(Request $request, Post $post):RedirectResponse
+      * Обновить пост
+      */
+    public function update(Request $request, Post $post): RedirectResponse
     {
         if (empty($post)) {
 
@@ -104,7 +104,7 @@ class PostsService extends Service
     }
 
     /**
-        Удалить пост
+     * Удалить пост
      */
     public function delete (Post $post): RedirectResponse
     {
@@ -123,7 +123,8 @@ class PostsService extends Service
     }
 
     /**
-        Валидация
+     * Валидация
+     * @throws ValidationException
      */
     public function saveValidate( array $data ): void
     {
@@ -161,7 +162,7 @@ class PostsService extends Service
     /**
      * Получить список постов для вывода в выпадающем списке
      */
-    public function getForSelect()
+    public function getForSelect(): array
     {
 
         return Post::select('id', 'title')->toBase()->get();
@@ -181,14 +182,6 @@ class PostsService extends Service
         $blockId = $request->blockId;
 
         switch ($request->type) {
-            case 'text-only':
-                $block = ['blockId' => $blockId,
-                    'type' => 'text-only',
-                    'block-title' => '',
-                    'text' => ''];
-
-                return view('admin.blog.posts._block-text', compact('block', 'blockId'));
-
             case 'img-and-text':
                 $block = ['blockId' => $blockId,
                     'type' => 'img-and-text',
@@ -221,9 +214,17 @@ class PostsService extends Service
                     'title-location' => 'centre',
                     'title-type' => ($request->titleType) ?: 'h2',
                     'block-title' => '',
-                    'text' => ($request->title) ?: '' ];
+                    'text' => ($request->title) ?: ''];
 
                 return view('admin.blog.posts._block-subtitle', compact('block', 'blockId'));
+
+            default: // text-only
+                $block = ['blockId' => $blockId,
+                    'type' => 'text-only',
+                    'block-title' => '',
+                    'text' => ''];
+
+                return view('admin.blog.posts._block-text', compact('block', 'blockId'));
         }
     }
 

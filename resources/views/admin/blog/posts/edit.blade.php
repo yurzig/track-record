@@ -47,25 +47,25 @@ $page = 'admin.posts.';
                         <div class="navbar-content">
                             <ul class="nav nav-tabs flex-row flex-wrap d-flex box" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" type="button"
+                                    <button type="button" id="basic-tab" class="nav-link active" data-bs-toggle="tab"
                                             role="tab" data-bs-target="#basic" aria-controls="basic" aria-selected="true">
                                         Основные данные
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="content-tab" data-bs-toggle="tab" type="button" role="tab"
+                                    <button type="button" id="content-tab" class="nav-link" data-bs-toggle="tab" role="tab"
                                             data-bs-target="#content" aria-controls="content" aria-selected="false">
                                         Текст статьи
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="review-tab" data-bs-toggle="tab" type="button" role="tab"
+                                    <button type="button" id="review-tab" class="nav-link" data-bs-toggle="tab" role="tab"
                                             data-bs-target="#review" aria-controls="review" aria-selected="false">
                                         Отзывы
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="other-tab" data-bs-toggle="tab" type="button" role="tab"
+                                    <button type="button" id="other-tab" class="nav-link" data-bs-toggle="tab" role="tab"
                                             data-bs-target="#other" aria-controls="other" aria-selected="false">
                                         SEO и прочие данные
                                     </button>
@@ -84,8 +84,8 @@ $page = 'admin.posts.';
                                         <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Категория</label>
                                             <div class="col-sm-8">
-                                                <select class="form-select item-status" required="required"
-                                                        name="category_id">
+                                                <select name="category_id" class="form-select item-status"
+                                                        required="required">
                                                     {!! postCategories()->selectTree($post->category_id) !!}
                                                 </select>
                                             </div>
@@ -94,8 +94,8 @@ $page = 'admin.posts.';
                                         <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Автор</label>
                                             <div class="col-sm-8">
-                                                <select class="form-select item-status select2" required="required"
-                                                        name="user_id">
+                                                <select name="user_id" class="form-select item-status select2"
+                                                        required="required">
                                                     @foreach (users()->getForSelect() as $user)
                                                         <option value={{ $user->id }} @selected($post->user_id === $user->id)>{{ $user->name }}</option>
                                                     @endforeach
@@ -106,29 +106,26 @@ $page = 'admin.posts.';
                                         <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Заголовок</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text"
-                                                       name="title"
-                                                       placeholder="Заголовок статьи"
+                                                <input type="text" name="title" class="form-control"
                                                        value="{{ old('title', $post->title) }}"
-                                                       required="required">
+                                                       required="required" placeholder="Заголовок статьи">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 form-control-label">Url</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control" type="text"
-                                                       name="slug"
-                                                       placeholder="Уникальный идентификатор"
-                                                       value="{{ old('slug', $post->slug) }}">
+                                                <input type="text" name="slug" class="form-control"
+                                                       value="{{ old('slug', $post->slug) }}"
+                                                       placeholder="Уникальный идентификатор">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['slug'] }}</div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 form-control-label">Теги</label>
                                             <div class="col-sm-8">
-                                                <select class="form-select item-status select2-tag"
-                                                        name="tags[]" multiple="multiple" data-url="{{ route($page . 'add_tag') }}" >
+                                                <select name="tags[]" class="form-select item-status select2-tag"
+                                                        multiple="multiple" data-url="{{ route($page . 'add_tag') }}" >
                                                     @foreach (postTags()->getForSelect() as $tag) {
                                                         <option value='{{ $tag->tag }}' @isset( $post->tags ) @selected( in_array($tag->tag, $post->tags ) )@endisset>{{ $tag->tag }}</option>";
                                                     @endforeach
@@ -140,20 +137,20 @@ $page = 'admin.posts.';
                                             <label class="col-sm-4 form-control-label">Статья опубликована</label>
                                             <div class="col-sm-8 form-check form-switch">
                                                 <input type="hidden" name="is_published" value="0">
-                                                <input class="form-control form-check-input" type="checkbox"
-                                                       name="is_published"
-                                                       @checked($post->is_published)
-                                                       value="1">
+                                                <input type="checkbox" name="is_published"
+                                                       class="form-control form-check-input"
+                                                       value="1"
+                                                       @checked($post->is_published)>
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['is_published'] }}</div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-4 form-control-label">Дата публикации</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control flatpickr-input" type="text"
-                                                       name="published_at"
-                                                       placeholder="Дата публикации статьи"
-                                                       value="{{ old('published_at', $post->published_at) }}">
+                                                <input type="text" name="published_at"
+                                                       class="form-control flatpickr-input"
+                                                       value="{{ old('published_at', $post->published_at) }}"
+                                                       placeholder="Дата публикации статьи">
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['published_at'] }}</div>
                                         </div>
@@ -167,12 +164,13 @@ $page = 'admin.posts.';
                                 <div class="form-group row">
                                     <label class="form-control-label justify-content-center">Аннотация</label>
                                     <div class="col-sm-12 help-text">{{ $help['excerpt'] }}</div>
-                                    <textarea name="excerpt"
-                                              class="form-control item-content">{{ old('excerpt', $post->excerpt) }}</textarea>
+                                    <textarea name="excerpt" class="form-control item-content">
+                                        {{ old('excerpt', $post->excerpt) }}
+                                    </textarea>
                                 </div>
                                 @if(count($post->content) > 1)
                                 <div class="form-group collapsed">
-                                    <button class="collapsed-btn btn-secondary" type="button">Развернуть блоки</button>
+                                    <button type="button" class="collapsed-btn btn-secondary">Развернуть блоки</button>
                                 </div>
                                 @endif
                                 @php $lastId = 0; @endphp
@@ -214,20 +212,18 @@ $page = 'admin.posts.';
                                 <div class="form-group row">
                                     <label class="col-sm-4 form-control-label">meta-title</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" type="text"
-                                               name="meta_title"
-                                               placeholder="title"
-                                               value="{{ old('meta_title', $post->meta_title) }}">
+                                        <input type="text" name="meta_title" class="form-control"
+                                               value="{{ old('meta_title', $post->meta_title) }}"
+                                               placeholder="title">
                                     </div>
                                     <div class="col-sm-12 help-text">{{ $help['meta_title'] }}</div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-4 form-control-label">meta-description</label>
                                     <div class="col-sm-8">
-                                        <input class="form-control" type="text"
-                                               name="meta_description"
-                                               placeholder="description"
-                                               value="{{ old('meta_description', $post->meta_description) }}">
+                                        <input type="text" name="meta_description" class="form-control"
+                                               value="{{ old('meta_description', $post->meta_description) }}"
+                                               placeholder="description">
                                     </div>
                                     <div class="col-sm-12 help-text">{{ $help['meta_description'] }}</div>
                                 </div>

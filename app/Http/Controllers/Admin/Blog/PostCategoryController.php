@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog\PostCategory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -24,8 +25,9 @@ class PostCategoryController extends Controller
 
         return view('admin.blog.categories.index');
     }
+
     /**
-     * Добавление новой категории(форма)
+     * Добавление новой категории (форма)
      */
     public function add($parent): View
     {
@@ -34,7 +36,7 @@ class PostCategoryController extends Controller
     }
 
     /**
-     * Добавление новой категории(сохранить)
+     * Добавление новой категории (сохранить)
      */
     public function store(Request $request): RedirectResponse
     {
@@ -62,7 +64,7 @@ class PostCategoryController extends Controller
     }
 
     /**
-        Удаление категории.
+     * Удаление категории.
      */
     public function destroy(PostCategory $category): RedirectResponse
     {
@@ -71,14 +73,13 @@ class PostCategoryController extends Controller
     }
 
     /**
-        Сортировка категорий.
+     * Сортировка категорий.
      */
-    public function sortable( Request $request)
+    public function sortable( Request $request): JsonResponse
     {
-
         postCategories()->setSortable($request);
-        return response()->json('Ok');
 
+        return response()->json('Ok');
     }
 
 }

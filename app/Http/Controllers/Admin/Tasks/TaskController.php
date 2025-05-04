@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class TaskController extends Controller
 {
-    private $perPage;
+    private int $perPage;
 
     public function __construct()
     {
@@ -23,7 +23,7 @@ class TaskController extends Controller
     public function index(): View
     {
         $items = tasks()->getAll($this->perPage);
-//dd($items);
+
         return view('admin.tasks.tasks.index', compact('items'));
     }
 
@@ -64,9 +64,8 @@ class TaskController extends Controller
     }
 
     /**
-     * Удаление раздела.
+     * Удаление задачи.
      */
-    // TODO проверить существование задач в разделе
     public function destroy(Task $task): RedirectResponse
     {
 
@@ -96,9 +95,9 @@ class TaskController extends Controller
     /**
      * Сброс и сохранение в сессии примененных фильтров.
      */
-    public function filtersReset(): RedirectResponse
+    public function resetFilters(): RedirectResponse
     {
-        tasks()->filtersReset();
+        tasks()->resetFilters();
 
         return to_route('admin.tasks.index');
     }

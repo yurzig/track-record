@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class SettingController extends Controller
 {
-    private $perPage;
+    private int $perPage;
 
     public function __construct()
     {

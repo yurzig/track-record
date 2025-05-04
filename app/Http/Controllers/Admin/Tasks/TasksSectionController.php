@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class TasksSectionController extends Controller
 {
-    private $perPage;
+    private int $perPage;
 
     public function __construct()
     {
@@ -28,7 +28,7 @@ class TasksSectionController extends Controller
     }
 
     /**
-     * Создание раздела(форма)
+     * Создание раздела (форма)
      */
     public function create(): View
     {
@@ -96,9 +96,9 @@ class TasksSectionController extends Controller
     /**
      * Сброс и сохранение в сессии примененных фильтров.
      */
-    public function filtersReset(): RedirectResponse
+    public function resetFilters(): RedirectResponse
     {
-        sections()->filtersReset();
+        sections()->resetFilters();
 
         return to_route('admin.tasks.sections.index');
     }

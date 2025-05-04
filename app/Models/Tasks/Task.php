@@ -9,6 +9,9 @@ class Task extends Model
 {
     use SoftDeletes;
 
+    public int $id;
+    public string $title;
+
     protected $casts = [
         'in_work' => 'boolean',
     ];

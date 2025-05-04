@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class PostTagController extends Controller
 {
-    private $perPage;
+    private int $perPage;
 
     public function __construct()
     {
@@ -20,7 +20,7 @@ class PostTagController extends Controller
     /**
      * Список тегов
      */
-    public function index()
+    public function index(): View
     {
         $items = postTags()->getAll($this->perPage);
 
@@ -66,10 +66,10 @@ class PostTagController extends Controller
     /**
      * Удаление тега.
      */
-    public function destroy(PostTag $tag)
+    public function destroy(PostTag $tag): RedirectResponse
     {
 
-        return postReviews()->delete($review);
+        return postTags()->delete($tag);
     }
 
     /**
@@ -95,9 +95,9 @@ class PostTagController extends Controller
     /**
      * Сброс и сохранение в сессии примененных фильтров.
      */
-    public function filtersReset()
+    public function resetFilters(): RedirectResponse
     {
-        postTags()->filtersReset();
+        postTags()->resetFilters();
 
         return to_route('admin.blog.tags.index');
     }

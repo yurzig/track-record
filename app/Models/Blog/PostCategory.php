@@ -10,6 +10,9 @@ class PostCategory extends Model
 {
     use SoftDeletes;
 
+    public int $id;
+    public string $title;
+
     protected $fillable = [
         'parent_id',
         'title',
@@ -18,7 +21,9 @@ class PostCategory extends Model
         'editor',
     ];
 
-    // Добавляем в модель уникальное поле slug
+    /**
+     * Добавляем в модель уникальное поле slug
+     */
     protected function slug(): Attribute
     {
 

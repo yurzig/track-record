@@ -9,6 +9,7 @@ use App\Yz\Services\Traits\ACTIONS;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 class TasksSectionsService extends Service
@@ -32,15 +33,14 @@ class TasksSectionsService extends Service
                 }
             }
         }
-        $result = $query
+
+        return $query
             ->orderBy($sort[0], $sort[1])
             ->paginate($perPage);
-
-        return $result;
     }
 
     /**
-        Сохранение раздела
+     * Сохранение раздела
      */
     public function store(Request $request): RedirectResponse
     {
@@ -59,7 +59,7 @@ class TasksSectionsService extends Service
     }
 
     /**
-        Обновить раздел
+     * Обновить раздел
      */
     public function update(Request $request, TasksSection $section): RedirectResponse
     {
@@ -85,7 +85,7 @@ class TasksSectionsService extends Service
     }
 
     /**
-        Удалить раздел
+     * Удалить раздел
      */
     //todo проверить наличие задач перед удалением раздела
     public function delete (TasksSection $section): RedirectResponse
@@ -105,7 +105,8 @@ class TasksSectionsService extends Service
     }
 
     /**
-        Валидация
+     * Валидация
+     * @throws ValidationException
      */
     public function saveValidate( array $data ): void
     {
@@ -118,7 +119,7 @@ class TasksSectionsService extends Service
     /**
      * Получить список разделов для вывода в выпадающем списке
      */
-    public function getForSelect()
+    public function getForSelect(): array
     {
 
         return TasksSection::select('id', 'title')->toBase()->get();

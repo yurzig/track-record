@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Illuminate\Validation\ValidationException;
 
 class PostCategoriesService
 {
     /**
-        Получить список категорий в виде дерева методом Tommy Lacroix
+     * Получить список категорий в виде дерева методом Tommy Lacroix
      */
-    public function getTree():array
+    public function getTree(): array
     {
         $categories = PostCategory::select('id', 'title', 'parent_id')
             ->orderBy('sort')
@@ -40,7 +40,8 @@ class PostCategoriesService
     }
 
     /**
-        Сохранение категории поста
+     * Сохранение категории поста
+     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
@@ -59,9 +60,10 @@ class PostCategoriesService
     }
 
     /**
-        Обновить категорию поста
+     * Обновить категорию поста
+     * @throws ValidationException
      */
-    public function update(Request $request, PostCategory $category):RedirectResponse
+    public function update(Request $request, PostCategory $category): RedirectResponse
     {
         if (empty($category)) {
 
@@ -82,15 +84,14 @@ class PostCategoriesService
             return back()->withErrors(['msg' => 'Ошибка сохранения'])->withInput();
         }
 
-        return to_route('admin.postblog.categories.edit', $category)->with(['success' => 'Успешно сохранено']);
+        return to_route('admin.blog.categories.edit', $category)->with(['success' => 'Успешно сохранено']);
     }
 
     /**
-        Удалить категорию поста
+     * Удалить категорию поста
      */
     public function delete (PostCategory $category): RedirectResponse
     {
-
         $result = $category->delete();
 
         if ($result) {
@@ -102,9 +103,12 @@ class PostCategoriesService
 
         return back()->withErrors(['msg' => 'Ошибка удаления']);
     }
+
 /**
         Проверка перед удалением категории поста
      */
+//todo Проверка перед удалением категории поста
+
 //    public function beforeDelete( Post $post_category ): void
 //    {
 //        if (count(posts()->getByCategoryId( $post_category )) > 0)
@@ -116,7 +120,8 @@ class PostCategoriesService
 
 
     /**
-        Валидация
+     * Валидация
+     * @throws ValidationException
      */
     public function saveValidate( array $data ): void
     {
@@ -130,7 +135,7 @@ class PostCategoriesService
     /**
      * Получить список категорий для вывода в выпадающем списке
      */
-    public function getForSelect()
+    public function getForSelect(): array
     {
 
         return PostCategory::select('id', 'title')->toBase()->get();
@@ -166,7 +171,8 @@ class PostCategoriesService
         return self::selectItems(postCategories()->getTree(), $active_id);
     }
 
-    private static function selectItems(array $items, int $active_id, string $str='') {
+    private static function selectItems(array $items, int $active_id, string $str=''): string
+    {
         $string = '';
         foreach ($items as $item) {
             $string .= self::selectRow($item, $active_id, $str);
@@ -175,7 +181,8 @@ class PostCategoriesService
         return $string;
     }
 
-    private static function selectRow(array $category, int $active_id, string $str) {
+    private static function selectRow(array $category, int $active_id, string $str): string
+    {
         $selected = ($active_id === $category['id']) ? ' selected="selected"' : '';
 //        if($category['parent'] == 0) {
 //            $row = '<option value="' . $category['id'] . '"' . $selected . '>' . $category['title'] . '</option>';
@@ -190,6 +197,7 @@ class PostCategoriesService
 
         return $row;
     }
+
     /**
      * Получить дерево категорий для меню
      */
@@ -247,7 +255,7 @@ class PostCategoriesService
     }
 
     /**
-        Сохранить сортировку блока категорий
+     * Сохранить сортировку блока категорий
      */
     public function setSortable(mixed $data): void
     {

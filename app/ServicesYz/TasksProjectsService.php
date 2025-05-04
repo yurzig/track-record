@@ -6,15 +6,15 @@ use App\Models\Tasks\TasksProject;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 
 class TasksProjectsService
 {
     /**
-        Получить список проектов в виде дерева методом Tommy Lacroix
+     * Получить список проектов в виде дерева методом Tommy Lacroix
      */
-    public function getTree():array
+    public function getTree(): array
     {
         $projects = TasksProject::select('id', 'title', 'parent_id')
             ->orderBy('sort')
@@ -39,7 +39,7 @@ class TasksProjectsService
     }
 
     /**
-        Сохранение проекта
+     * Сохранение проекта
      */
     public function store(Request $request): RedirectResponse
     {
@@ -57,9 +57,9 @@ class TasksProjectsService
     }
 
     /**
-        Обновить проект
+     * Обновить проект
      */
-    public function update(Request $request, TasksProject $project):RedirectResponse
+    public function update(Request $request, TasksProject $project): RedirectResponse
     {
         if (empty($project)) {
 
@@ -83,7 +83,7 @@ class TasksProjectsService
     }
 
     /**
-        Удалить проект
+     * Удалить проект
      */
     public function delete (TasksProject $project): RedirectResponse
     {
@@ -113,7 +113,8 @@ class TasksProjectsService
 
 
     /**
-        Валидация
+     * Валидация
+     * @throws ValidationException
      */
     public function saveValidate( array $data ): void
     {
@@ -126,7 +127,7 @@ class TasksProjectsService
     /**
      * Получить список проектов для вывода в выпадающем списке
      */
-    public function getForSelect()
+    public function getForSelect(): array
     {
 
         return TasksProject::select('id', 'title')->toBase()->get();
@@ -141,7 +142,8 @@ class TasksProjectsService
         return self::selectItems(projects()->getTree(), $active_id);
     }
 
-    private static function selectItems(array $items, int $active_id, string $str='') {
+    private static function selectItems(array $items, int $active_id, string $str=''): string
+    {
         $string = '';
         foreach ($items as $item) {
             $string .= self::selectRow($item, $active_id, $str);
@@ -150,7 +152,8 @@ class TasksProjectsService
         return $string;
     }
 
-    private static function selectRow(array $project, int $active_id, string $str) {
+    private static function selectRow(array $project, int $active_id, string $str): string
+    {
 
         $selected = ($active_id === $project['id']) ? ' selected="selected"' : '';
 //        if($category['parent'] == 0) {
@@ -166,6 +169,7 @@ class TasksProjectsService
 
         return $row;
     }
+
     /**
      * Получить дерево проектов для меню
      */
@@ -223,7 +227,7 @@ class TasksProjectsService
     }
 
     /**
-        Сохранить сортировку блока проектов
+     * Сохранить сортировку блока проектов
      */
     public function setSortable(mixed $data): void
     {

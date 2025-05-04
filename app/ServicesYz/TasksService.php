@@ -9,6 +9,7 @@ use App\Yz\Services\Traits\ACTIONS;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 
 class TasksService extends Service
@@ -31,27 +32,26 @@ class TasksService extends Service
 
         $query = Task::query();
 
-        if($filter) {
+        if ($filter) {
             foreach ($filter['val'] as $key => $item) {
                 if (!is_null($item)) {
                     $query->where($key, $filter['op'][$key], $filter['op'][$key] === 'like' ? "%$item%" : $item);
                 }
             }
         }
-        $result = $query
+
+        return $query
             ->orderBy($sort[0], $sort[1])
             ->paginate($perPage);
-
-        return $result;
     }
 
     /**
-    * Сохранение задачи
-    */
+     * Сохранение задачи
+     */
     public function store(Request $request): RedirectResponse
     {
         $data = $request->input();
-//dd($data);
+
         $this->saveValidate($data);
 
         $task = (new Task())->create($data);
@@ -65,8 +65,8 @@ class TasksService extends Service
     }
 
     /**
-    * Обновить задачу
-    */
+     * Обновить задачу
+     */
     public function update(Request $request, Task $task): RedirectResponse
     {
         if (empty($task)) {
@@ -91,8 +91,8 @@ class TasksService extends Service
     }
 
     /**
-    * Удалить задачу
-    */
+     * Удалить задачу
+     */
     public function delete (Task $task): RedirectResponse
     {
         $item = $task;
@@ -110,8 +110,9 @@ class TasksService extends Service
     }
 
     /**
-    * Валидация
-    */
+     * Валидация
+     * @throws ValidationException
+     */
     public function saveValidate(array $data): void
     {
         Validator::make($data, [
@@ -130,8 +131,8 @@ class TasksService extends Service
     }
 
     /**
-    * Получить массив типов
-    */
+     * Получить массив типов
+     */
     public function getTypes(): array
     {
 
@@ -139,8 +140,8 @@ class TasksService extends Service
     }
 
     /**
-    * Получить тип
-    */
+     * Получить тип
+     */
     public function getType($type): string
     {
 

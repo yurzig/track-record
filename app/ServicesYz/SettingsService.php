@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Yz\Services\Service;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class SettingsService extends Service
 {
@@ -33,15 +34,14 @@ class SettingsService extends Service
                 }
             }
         }
-        $result = $query
+
+        return $query
             ->orderBy($sort[0], $sort[1])
             ->paginate($perPage);
-
-        return $result;
     }
 
     /**
-        Сохранение настройки
+     * Сохранение настройки
      */
     public function store(Request $request): RedirectResponse
     {
@@ -62,9 +62,9 @@ class SettingsService extends Service
     }
 
     /**
-        Обновить настройку
+     * Обновить настройку
      */
-    public function update(Request $request, Setting $setting):RedirectResponse
+    public function update(Request $request, Setting $setting): RedirectResponse
     {
         if (empty($setting)) {
 
@@ -90,7 +90,7 @@ class SettingsService extends Service
     }
 
     /**
-        Удалить настройку
+     * Удалить настройку
      */
     public function delete (Setting $setting): RedirectResponse
     {
@@ -109,7 +109,8 @@ class SettingsService extends Service
     }
 
     /**
-        Валидация
+     * Валидация
+     * @throws ValidationException
      */
     public function saveValidate( array $data, Setting $setting = null ): void
     {
@@ -129,7 +130,7 @@ class SettingsService extends Service
     public function getBySlug(string $slug, string $key = null): mixed
     {
         $setting = Setting::where('slug', $slug)->first();
-        
+
         if (is_null($setting) || !is_array($setting->setting_values)) {
 
             return '';

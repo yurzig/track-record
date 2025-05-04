@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class PostReviewController extends Controller
 {
-    private $perPage;
+    private int $perPage;
 
     public function __construct()
     {
@@ -20,7 +20,7 @@ class PostReviewController extends Controller
     /**
      * Список отзывов поста
      */
-    public function index()
+    public function index(): View
     {
         $items = postReviews()->getAll($this->perPage);
 
@@ -37,7 +37,7 @@ class PostReviewController extends Controller
     }
 
     /**
-     * Создание отзыва(сохранение)
+     * Создание отзыва (сохранение)
      */
     public function store(Request $request): RedirectResponse
     {
@@ -46,7 +46,7 @@ class PostReviewController extends Controller
     }
 
     /**
-     * Редактирование отзыва(форма)
+     * Редактирование отзыва (форма)
      */
     public function edit(PostReview $review): View
     {
@@ -55,7 +55,7 @@ class PostReviewController extends Controller
     }
 
     /**
-     * Редактирование отзыва(сохранение)
+     * Редактирование отзыва (сохранение)
      */
     public function update(Request $request, PostReview $review): RedirectResponse
     {
@@ -95,9 +95,9 @@ class PostReviewController extends Controller
     /**
      * Сброс и сохранение в сессии примененных фильтров.
      */
-    public function filtersReset()
+    public function resetFilters(): RedirectResponse
     {
-        postReviews()->filtersReset();
+        postReviews()->resetFilters();
 
         return to_route('admin.blog.reviews.index');
     }
