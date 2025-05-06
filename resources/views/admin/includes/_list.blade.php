@@ -1,7 +1,7 @@
 <div class="list">
     <table class="list-items table table-hover table-striped">
         <thead class="list-header">
-        <tr>
+          <tr>
             @foreach($fields as $field)
                 @if(in_array($field['dbName'], $columns))
                     <th{{ $field['class'] }}>
@@ -30,61 +30,60 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="list-search">
-            <form method="POST" action="{{ route($page . 'filter') }}">
-                @csrf
-                @foreach($fields as $field)
-                    @if(!in_array($field['dbName'], $columns))
-                        @continue
-                    @endif
-                    <td{{ $field['class'] }}>
-                        <input type="hidden" name="filters[op][{{ $field['dbName'] }}]" value="{{ $field['op'] }}">
+            <tr class="list-search">
+                <form method="POST" action="{{ route($page . 'filter') }}">
+                    @csrf
+                    @foreach($fields as $field)
+                        @if(!in_array($field['dbName'], $columns))
+                            @continue
+                        @endif
+                        <td{{ $field['class'] }}>
+                            <input type="hidden" name="filters[op][{{ $field['dbName'] }}]" value="{{ $field['op'] }}">
 
-                        @switch($field['type'])
-                            @case('switch')
-                            @case('select')
-                                <select class="form-select" name="filters[val][{{ $field['dbName'] }}]">
-                                    @php $var = $field['dbName'] . '_options';
-                                         echo $$var
-                                    @endphp
-                                </select>
-                                @break
-{{--                                <div class="form-check form-switch">--}}
-{{--                                    <input type="checkbox"--}}
-{{--                                           name="filters[val][{{ $field['dbName'] }}]"--}}
-{{--                                           class="form-check-input"--}}
-{{--                                           value="1"--}}
-{{--                                           @checked((isset($filter['val'][$field['dbName']]) && $filter['val'][$field['dbName']]))--}}
-{{--                                </div>--}}
-{{--                                @break--}}
-                            @case('date')
-                                <input class="form-control flatpickr-input" type="text"
-                                       name="filters[val][{{ $field['dbName'] }}]"
-                                       value="{{ $filter['val'][$field['dbName']] ?? '' }}">
-                                @break
-                            @case('text')
-                                <input class="form-control" type="{{ $field['type'] }}"
-                                       name="filters[val][{{ $field['dbName'] }}]"
-                                       value="{{ $filter['val'][$field['dbName']] ?? '' }}">
-                                @break
-                        @endswitch
+                            @switch($field['type'])
+                                @case('switch')
+                                @case('select')
+                                    <select name="filters[val][{{ $field['dbName'] }}]" class="form-select">
+                                        @php $var = $field['dbName'] . '_options';
+                                             echo $$var
+                                        @endphp
+                                    </select>
+                                    @break
+    {{--                                <div class="form-check form-switch">--}}
+    {{--                                    <input type="checkbox"--}}
+    {{--                                           name="filters[val][{{ $field['dbName'] }}]"--}}
+    {{--                                           class="form-check-input"--}}
+    {{--                                           value="1"--}}
+    {{--                                           @checked((isset($filter['val'][$field['dbName']]) && $filter['val'][$field['dbName']]))--}}
+    {{--                                </div>--}}
+    {{--                                @break--}}
+                                @case('date')
+                                    <input type="text" name="filters[val][{{ $field['dbName'] }}]"
+                                           class="form-control flatpickr-input"
+                                           value="{{ $filter['val'][$field['dbName']] ?? '' }}">
+                                    @break
+                                @case('text')
+                                    <input type="{{ $field['type'] }}" name="filters[val][{{ $field['dbName'] }}]"
+                                           class="form-control"
+                                           value="{{ $filter['val'][$field['dbName']] ?? '' }}">
+                                    @break
+                            @endswitch
+                        </td>
+                    @endforeach
+                    <td class="actions">
+                        <button type="submit" name="action" class="btn act-filter fa"
+                                value="filter"
+                                title="Поиск">
+                        </button>
+                        <a class="btn fa act-reset" tabindex="1"
+                           href="{{ route($page . 'reset') }}"
+                           title="Сброс фильтра">
+                        </a>
                     </td>
-                @endforeach
-                <td class="actions">
-                    <button type="submit" class="btn act-filter fa"
-                            name="action"
-                            value="filter"
-                            title="Поиск">
-                    </button>
-                    <a class="btn fa act-reset" tabindex="1"
-                       href="{{ route($page . 'reset') }}"
-                       title="Сброс фильтра">
-                    </a>
-                </td>
-            </form>
-        </tr>
-    @foreach($items as $item)
-        <tr class="list-item">
+                </form>
+            </tr>
+            @foreach($items as $item)
+            <tr class="list-item">
             @foreach($fields as $field)
                 @if(!in_array($field['dbName'], $columns))
                     @continue
@@ -116,22 +115,22 @@
                             break;
                     }
                 @endphp
-            <td{!! $field['class'] === ' class=js-title' ? ' class=js-title' : '' !!}>
-                {!! $value !!}
-            </td>
+                <td{!! $field['class'] === ' class=js-title' ? ' class=js-title' : '' !!}>
+                    {!! $value !!}
+                </td>
             @endforeach
-            <td class="actions">
-                <a class="btn act-edit fa"
-                   href="{{ route($page . 'edit', $item) }}"
-                   title="Редактировать">
-                </a>
-                <button type="button" class="btn act-delete fa row-delete"
-                        data-action="{{ route($page . 'destroy', $item) }}"
-                        title="Удалить эту запись">
-                </button>
-            </td>
-        </tr>
-    @endforeach
+                <td class="actions">
+                    <a class="btn act-edit fa"
+                       href="{{ route($page . 'edit', $item) }}"
+                       title="Редактировать">
+                    </a>
+                    <button type="button" class="btn act-delete fa row-delete"
+                            data-action="{{ route($page . 'destroy', $item) }}"
+                            title="Удалить эту запись">
+                    </button>
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

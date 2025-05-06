@@ -22,7 +22,7 @@ $page = 'admin.post.reviews.';
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-2 mb-3">
-    <form id="edit-form" class="item w-100" method="POST" enctype="multipart/form-data"
+    <form method="POST" id="edit-form" class="item w-100" enctype="multipart/form-data"
           action="{{ route($page . 'update', $review) }}" novalidate>
         @csrf
         @method('PATCH')
@@ -36,13 +36,13 @@ $page = 'admin.post.reviews.';
                     <div class="navbar-content">
                         <ul class="nav nav-tabs flex-row flex-wrap d-flex box" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" type="button"
+                                <button type="button" id="basic-tab" class="nav-link active" data-bs-toggle="tab"
                                         role="tab" data-bs-target="#basic" aria-controls="basic" aria-selected="true">
                                     Основные данные
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="other-tab" data-bs-toggle="tab" type="button" role="tab"
+                                <button type="button" id="other-tab" class="nav-link" data-bs-toggle="tab" role="tab"
                                         data-bs-target="#other" aria-controls="other" aria-selected="false">
                                     Прочие данные
                                 </button>
@@ -61,15 +61,14 @@ $page = 'admin.post.reviews.';
                                         <label class="col-sm-4 form-control-label">Статья</label>
                                         <div class="col-sm-8">
                                             <input type="hidden" name="post_id" value="{{ $review->post_id }}">
-                                            <input class="form-control" readonly type="text" value="{{ $review->post->title }}">
+                                            <input type="text" class="form-control" readonly value="{{ $review->post->title }}">
                                         </div>
                                     </div>
                                     <div class="form-group row mandatory">
                                         <label class="col-sm-4 form-control-label">Пользователь</label>
                                         <div class="col-sm-8">
-                                            <select class="form-select select2"
+                                            <select name="user_id" class="form-select select2"
                                                     required="required"
-                                                    name="user_id"
                                                     data-placeholder="Пользователь оставивший отзыв">
                                                 @foreach (users()->getForSelect() as $user)
                                                     <option value={{ $user->id }} @selected($review->user_id === $user->id)>{{ $user->name }}</option>
@@ -80,10 +79,9 @@ $page = 'admin.post.reviews.';
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Рейтинг</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text"
-                                                   name="rating"
-                                                   placeholder="Рейтинг товара(1-5)"
-                                                   value="{{ old('rating', $review->rating) }}">
+                                            <input type="text" name="rating" class="form-control"
+                                                   value="{{ old('rating', $review->rating) }}"
+                                                   placeholder="Рейтинг товара(1-5)">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -95,16 +93,15 @@ $page = 'admin.post.reviews.';
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Ответ</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text"
-                                                   name="response"
-                                                   placeholder="Ответ на комментарий"
-                                                   value="{{ old('response', $review->response) }}">
+                                            <input type="text" name="response" class="form-control"
+                                                   value="{{ old('response', $review->response) }}"
+                                                   placeholder="Ответ на комментарий">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Статус</label>
                                         <div class="col-sm-8">
-                                            <select class="form-select item-status" required="required" name="status">
+                                            <select name="status" class="form-select item-status" required="required">
                                                 @foreach (postReviews()->getStatuses() as $key => $status) {
                                                 <option value='{{ $key }}' @selected($review->status === $key)>{{ $status }}</option>";
                                                 @endforeach

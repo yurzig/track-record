@@ -24,10 +24,10 @@
         </select>
     </div>
     <div class="item-filter">
-        <input type="text" id="date-start" name="date-start" class="form-control flatpickrStart" placeholder="Начало периода">
+        <input type="text" name="date-start" id="date-start" class="form-control flatpickrStart" placeholder="Начало периода">
     </div>
     <div class="item-filter">
-        <input type="text" id="date-end" name="date-end" class="form-control flatpickrEnd" placeholder="Конец периода">
+        <input type="text" name="date-end" id="date-end" class="form-control flatpickrEnd" placeholder="Конец периода">
     </div>
     <div class="item-filter">
         <select name="placement" class="form-select">

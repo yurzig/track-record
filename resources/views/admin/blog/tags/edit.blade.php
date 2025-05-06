@@ -17,7 +17,7 @@ $page = 'admin.post.tags.';
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-2 mb-3">
-    <form id="edit-form" class="item w-100" method="POST" enctype="multipart/form-data"
+    <form method="POST" id="edit-form" class="item w-100" enctype="multipart/form-data"
           action="{{ route($page . 'update', $tag) }}" novalidate>
         @csrf
         @method('PATCH')
@@ -31,13 +31,13 @@ $page = 'admin.post.tags.';
                     <div class="navbar-content">
                         <ul class="nav nav-tabs flex-row flex-wrap d-flex box" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" type="button"
+                                <button type="button" id="basic-tab" class="nav-link active" data-bs-toggle="tab"
                                         role="tab" data-bs-target="#basic" aria-controls="basic" aria-selected="true">
                                     Основные данные
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="other-tab" data-bs-toggle="tab" type="button" role="tab"
+                                <button type="button" id="other-tab" class="nav-link" data-bs-toggle="tab" role="tab"
                                         data-bs-target="#other" aria-controls="other" aria-selected="false">
                                     Прочие данные
                                 </button>
@@ -55,10 +55,9 @@ $page = 'admin.post.tags.';
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Тег</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="text"
-                                                   name="tag"
-                                                   placeholder="Тег"
-                                                   value="{{ old('tag', $tag->tag) }}">
+                                            <input type="text" name="tag" class="form-control"
+                                                   value="{{ old('tag', $tag->tag) }}"
+                                                   placeholder="Тег">
                                         </div>
                                     </div>
                                 </div>

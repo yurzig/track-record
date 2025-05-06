@@ -37,7 +37,7 @@ $page = 'admin.tasks.projects.';
         </div>
 
         <div class="col-lg-8 ps-2">
-            <form id="edit-form" class="item w-100" method="POST" enctype="multipart/form-data"
+            <form method="POST" id="edit-form" class="item w-100" enctype="multipart/form-data"
                   action="{{ route($page . 'store') }}" novalidate>
                 @csrf
                 @include('admin.includes._result_messages')
@@ -48,7 +48,7 @@ $page = 'admin.tasks.projects.';
                             <div class="navbar-content">
                                 <ul class="nav nav-tabs flex-row flex-wrap d-flex box" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" type="button"
+                                        <button type="button" class="nav-link active" id="basic-tab" data-bs-toggle="tab"
                                                 role="tab" data-bs-target="#basic" aria-controls="basic" aria-selected="true">
                                             Ввод данных
                                         </button>
@@ -65,11 +65,10 @@ $page = 'admin.tasks.projects.';
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-2 form-control-label">Название</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="text"
-                                                           name="title"
-                                                           placeholder="Название проекта"
+                                                    <input type="text" name="title" class="form-control"
                                                            value="{{ old('title') }}"
-                                                           required="required">
+                                                           required="required"
+                                                           placeholder="Название проекта">
                                                 </div>
                                                 <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
                                             </div>
@@ -86,7 +85,7 @@ $page = 'admin.tasks.projects.';
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-2 form-control-label">Родитель</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-select item-status" name="parent_id">
+                                                    <select name="parent_id" class="form-select item-status">
                                                         <option value="0">0-й уровень</option>
                                                         {!! projects()->selectTree($parent) !!}
                                                     </select>

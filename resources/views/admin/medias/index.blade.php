@@ -74,7 +74,7 @@ $page = 'admin.medias.';
                                 <input type="hidden" name="filter[op][{{ $field['dbName'] }}]" value="{{ $field['op'] }}">
                                 @switch($field['type'])
                                     @case('select')
-                                        <select class="form-select" name="filter[val][{{ $field['dbName'] }}]">
+                                        <select name="filter[val][{{ $field['dbName'] }}]" class="form-select">
                                             @php $var = $field['dbName'] . '_options';
                                          echo $$var
                                             @endphp
@@ -92,21 +92,20 @@ $page = 'admin.medias.';
                                         </div>
                                         @break
                                     @case('date')
-                                        <input class="form-control flatpickr-input" type="text"
-                                               name="filter[val][{{ $field['dbName'] }}]"
+                                        <input type="text" name="filter[val][{{ $field['dbName'] }}]"
+                                               class="form-control flatpickr-input"
                                                value="{{ $filter['val'][$field['dbName']] ?? '' }}">
                                         @break
                                     @case('text')
-                                        <input class="form-control" type="{{ $field['type'] }}"
-                                               name="filter[val][{{ $field['dbName'] }}]"
+                                        <input type="{{ $field['type'] }}" name="filter[val][{{ $field['dbName'] }}]"
+                                               class="form-control"
                                                value="{{ $filter['val'][$field['dbName']] ?? '' }}">
                                         @break
                                 @endswitch
                             </td>
                         @endforeach
                         <td class="actions">
-                            <button type="submit" class="btn act-search fa"
-                                    name="action"
+                            <button type="submit" name="action" class="btn act-search fa"
                                     value="search"
                                     title="Поиск">
                             </button>

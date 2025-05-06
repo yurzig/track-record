@@ -22,7 +22,7 @@ $page = 'admin.post.reviews.';
 
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-2 mb-3">
-    <form id="edit-form" class="item w-100" method="POST" enctype="multipart/form-data"
+    <form method="POST" id="edit-form" class="item w-100" enctype="multipart/form-data"
           action="{{ route($page . 'store') }}" novalidate>
         @csrf
         @include('admin.includes._result_messages')
@@ -33,7 +33,7 @@ $page = 'admin.post.reviews.';
                     <div class="navbar-content">
                         <ul class="nav nav-tabs flex-row flex-wrap d-flex box" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" type="button"
+                                <button type="button" id="basic-tab" class="nav-link active" data-bs-toggle="tab"
                                         role="tab" data-bs-target="#basic" aria-controls="basic" aria-selected="true">
                                     Ввод данных
                                 </button>
@@ -51,10 +51,8 @@ $page = 'admin.post.reviews.';
                                     <div class="form-group row mandatory">
                                         <label class="col-sm-4 form-control-label">Статья</label>
                                         <div class="col-sm-8">
-                                            <select class="form-select select2"
-                                                    required="required"
-                                                    name="post_id"
-                                                    data-placeholder="Укажите статью">
+                                            <select name="post_id" class="form-select select2"
+                                                    required="required" data-placeholder="Укажите статью">
                                                 <option></option>
                                                 @foreach(posts()->getForSelect() as $post)
                                                     <option value={{ $post->id }}>{{ $post->title }}</option>
@@ -65,9 +63,8 @@ $page = 'admin.post.reviews.';
                                     <div class="form-group row mandatory">
                                         <label class="col-sm-4 form-control-label">Пользователь</label>
                                         <div class="col-sm-8">
-                                            <select class="form-select select2"
+                                            <select name="user_id" class="form-select select2"
                                                     required="required"
-                                                    name="user_id"
                                                     data-placeholder="Пользователь оставивший отзыв">
                                                 <option></option>
                                                 @foreach (users()->getForSelect() as $user)
@@ -79,11 +76,10 @@ $page = 'admin.post.reviews.';
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Рейтинг</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control" type="number"
-                                                   name="rating"
-                                                   placeholder="Рейтинг товара(1-5)"
+                                            <input type="number" name="rating" class="form-control"
                                                    min="1" max="5"
-                                                   value="{{ old('rating') }}">
+                                                   value="{{ old('rating') }}"
+                                                   placeholder="Рейтинг товара(1-5)">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -95,16 +91,15 @@ $page = 'admin.post.reviews.';
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Ответ</label>
                                         <div class="col-sm-8">
-                                            <input class="form-control flatpickr-input" type="text"
-                                                   name="response"
-                                                   placeholder="Ответ на комментарий"
-                                                   value="{{ old('response') }}">
+                                            <input type="text" name="response" class="form-control flatpickr-input"
+                                                   value="{{ old('response') }}"
+                                                   placeholder="Ответ на комментарий">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-4 form-control-label">Статус</label>
                                         <div class="col-sm-8">
-                                            <select class="form-select item-status" required="required" name="status">
+                                            <select name="status" class="form-select item-status" required="required">
                                                 @foreach (postReviews()->getStatuses() as $key => $status) {
                                                 <option value='{{ $key }}'>{{ $status }}</option>";
                                                 @endforeach

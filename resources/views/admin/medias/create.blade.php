@@ -7,7 +7,7 @@
 
         @include('admin._nav', ['page' => 'media'])
         <main class="main-content">
-            <form class="item container-fluid" method="POST"
+            <form method="POST" class="item container-fluid"
                   enctype="multipart/form-data"
                   action="{{ route('admin.media.store') }}">
                 @csrf
@@ -81,7 +81,7 @@
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-4 form-control-label">Объект</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-select item-status" required="required" name="object">
+                                                    <select name="object" class="form-select item-status" required="required">
                                                         <option value="product">Товар</option>
                                                         <option value="category">Категория</option>
                                                         <option value="post">Статья</option>
@@ -92,26 +92,24 @@
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-4 form-control-label">id объекта</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text"
-                                                           name="ref_id"
-                                                           placeholder="id Объекта"
+                                                    <input type="text" name="ref_id" class="form-control"
                                                            value="{{ old('ref_id') }}"
-                                                           required="required">
+                                                           required="required"
+                                                           placeholder="id Объекта">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-4 form-control-label">Название</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text"
-                                                           name="title"
-                                                           placeholder="Название картинки"
-                                                           value="{{ old('title') }}">
+                                                    <input type="text" name="title" class="form-control"
+                                                           value="{{ old('title') }}"
+                                                           placeholder="Название картинки">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-4 form-control-label">Расположение</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-select item-status" required="required" name="placement">
+                                                    <select name="placement" class="form-select item-status" required="required">
                                                         <option value="first">Первая картинка</option>
                                                         <option value="second">Вторая картинка</option>
                                                         <option value="gallery">Галерея</option>
@@ -121,10 +119,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-4 form-control-label">Номер п/п</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text"
-                                                           name="sort"
-                                                           placeholder="Сортировка"
-                                                           value="{{ old('sort') }}">
+                                                    <input type="text" name="sort" class="form-control"
+                                                           value="{{ old('sort') }}"
+                                                           placeholder="Сортировка">
                                                 </div>
                                             </div>
                                         </div>

@@ -17,7 +17,7 @@
 
         @include('admin._nav', ['page' => 'media'])
         <main class="main-content">
-            <form class="item container-fluid" method="POST"
+            <form method="POST" class="item container-fluid"
                   enctype="multipart/form-data"
                   action="{{ route('admin.media.update', $item) }}">
                 @csrf
@@ -37,8 +37,7 @@
                         </a>
 
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-primary act-save"
-                                    title="Сохранить запись">
+                            <button type="submit" class="btn btn-primary act-save" title="Сохранить запись">
                                 Сохранить
                             </button>
                         </div>
@@ -89,7 +88,7 @@
                                         <div class="col-xl-6">
 
                                             <div class="form-group media-preview">
-                                                <input class="fileupload js-img" type="file" name="imagefile">
+                                                <input type="file" name="imagefile" class="fileupload js-img">
                                                 <img src="{{ asset($item->link) }}" alt="">
                                             </div>
                                         </div>
@@ -97,7 +96,7 @@
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-4 form-control-label">Объект</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-select item-status" required="required" name="object">
+                                                    <select name="object" class="form-select item-status" required="required">
                                                         <option value="product"{{ $item->object === 'product' ? ' selected' : ''}}>Товар</option>
                                                         <option value="category"{{ $item->object === 'category' ? ' selected' : ''}}>Категория</option>
                                                         <option value="post"{{ $item->object === 'post' ? ' selected' : ''}}>Статья</option>
@@ -108,26 +107,23 @@
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-4 form-control-label">id объекта</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text"
-                                                           name="ref_id"
-                                                           placeholder="id Объекта"
+                                                    <input type="text" name="ref_id" class="form-control"
                                                            value="{{ old('ref_id', $item->ref_id) }}"
-                                                           required="required">
+                                                           required="required" placeholder="id Объекта">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-4 form-control-label">Название</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text"
-                                                           name="title"
-                                                           placeholder="Название картинки"
-                                                           value="{{ old('title', $item->title) }}">
+                                                    <input type="text" name="title" class="form-control"
+                                                           value="{{ old('title', $item->title) }}"
+                                                           placeholder="Название картинки">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-4 form-control-label">Расположение</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-select item-status" required="required" name="placement">
+                                                    <select name="placement" class="form-select item-status" required="required">
                                                         <option value="first"{{ $item->placement === 'first' ? ' selected' : ''}}>Первая картинка</option>
                                                         <option value="second"{{ $item->placement === 'second' ? ' selected' : ''}}>Вторая картинка</option>
                                                         <option value="gallery"{{ $item->placement === 'gallery' ? ' selected' : ''}}>Галерея</option>
@@ -137,10 +133,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-4 form-control-label">Номер п/п</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text"
-                                                           name="sort"
-                                                           placeholder="Сортировка"
-                                                           value="{{ old('sort', $item->sort) }}">
+                                                    <input type="text" name="sort" class="form-control"
+                                                           value="{{ old('sort', $item->sort) }}"
+                                                           placeholder="Сортировка">
                                                 </div>
                                             </div>
                                         </div>
@@ -169,8 +164,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
 

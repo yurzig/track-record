@@ -20,11 +20,11 @@
         </div>
     </div>
     <div id="media-group-{{ $j }}" class="card-block collapse row js-repl show" role="tabpanel">
-        <input type="hidden" class="js-repl" name="media[{{ $j }}][id]" value="">
+        <input type="hidden" name="media[{{ $j }}][id]" class="js-repl" value="">
         <div class="col-xl-6">
 
             <div class="form-group media-preview">
-                <input class="js-img js-repl" type="file" name="media{{ $j }}" required="required">
+                <input type="file" name="media{{ $j }}" class="js-img js-repl" required="required">
                 <img src="" alt="">
             </div>
         </div>
@@ -32,15 +32,14 @@
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Название</label>
                 <div class="col-sm-8">
-                    <input class="form-control js-repl" type="text"
-                           name="media[{{ $j }}][title]"
+                    <input type="text" name="media[{{ $j }}][title]" class="form-control js-repl"
                            placeholder="Название картинки">
                 </div>
             </div>
             <div class="form-group row mandatory">
                 <label class="col-sm-4 form-control-label">Место размещения</label>
                 <div class="col-sm-8">
-                    <select class="form-select js-repl" required="required" name="media[{{ $j }}][placement]">
+                    <select name="media[{{ $j }}][placement]" class="form-select js-repl" required="required">
                         {!! $placementOptions !!}
                     </select>
                 </div>

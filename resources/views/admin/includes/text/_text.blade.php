@@ -23,17 +23,17 @@
          role="tabpanel">
         <div class="col-xl-12">
             <div class="form-group row">
-                <input type="hidden" class="js-repl text-id" name="text[{{ $j }}][id]" value="{{ $text->id }}">
+                <input type="hidden" name="text[{{ $j }}][id]" class="js-repl text-id" value="{{ $text->id }}">
                 <label class="col-sm-4 form-control-label">Тип</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control text-type" disabled value="{{ $type }}">
+                    <input type="text" class="form-control text-type" value="{{ $type }}" disabled>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Наименование</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control text-title" disabled value="{{ $text->title }}">
+                    <input type="text" class="form-control text-title" value="{{ $text->title }}" disabled>
                 </div>
             </div>
         </div>

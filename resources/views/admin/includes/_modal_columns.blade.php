@@ -1,4 +1,4 @@
-<div class="modal fade" id="columns-form" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+<div id="columns-form" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,11 +12,11 @@
                         @foreach($fields as $field)
                         <li class="column-item">
                             <label tabindex="tabindex">
-                                <input class="form-check-input"
-                                       type="checkbox"
+                                <input type="checkbox"
                                        name="fields[]"
-                                       @checked(in_array($field['dbName'], $columns))
-                                       value="{{ $field['dbName'] }}">
+                                       class="form-check-input"
+                                       value="{{ $field['dbName'] }}"
+                                       @checked(in_array($field['dbName'], $columns))>
                                 {{ $field['name'] }}
                             </label>
                         </li>

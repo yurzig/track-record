@@ -25,8 +25,8 @@ foreach ($types as $key => $type) {
             <div class="form-group row mandatory">
                 <label class="col-sm-4 form-control-label">Тип</label>
                 <div class="col-sm-3">
-                    <input type="hidden" class="js-repl" name="text[{{ $j }}][id]" value="{{ $text->id }}">
-                    <select class="form-select item-status js-repl" name="text[{{ $j }}][type]" required="required">
+                    <input type="hidden" name="text[{{ $j }}][id]" class="js-repl" value="{{ $text->id }}">
+                    <select name="text[{{ $j }}][type]" class="form-select item-status js-repl" required="required">
                         {!! $typeOptions !!}
                     </select>
                     <div class="col-sm-12 help-text">{{ $help['type'] }}</div>
@@ -35,11 +35,9 @@ foreach ($types as $key => $type) {
             <div class="form-group row mandatory">
                 <label class="col-sm-4 form-control-label">Наименование</label>
                 <div class="col-sm-8">
-                    <input class="form-control js-repl" type="text"
-                           name="text[{{ $j }}][title]"
-                           placeholder="Наименование текста"
+                    <input type="text" class="form-control js-repl" name="text[{{ $j }}][title]"
                            value="{{ old('text[' . $j . '][title]') }}"
-                           required="required">
+                           required="required" placeholder="Наименование текста">
                     <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
                 </div>
             </div>

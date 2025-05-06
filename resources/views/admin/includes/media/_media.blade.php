@@ -21,8 +21,8 @@
         <div class="col-xl-6">
 
             <div class="form-group media-preview">
-                <input type="hidden" class="js-repl" name="media[{{ $j }}][id]" value="{{ $media->id }}">
-                <input class="js-img js-repl" type="file" name="media{{ $j }}">
+                <input type="hidden" name="media[{{ $j }}][id]" class="js-repl" value="{{ $media->id }}">
+                <input type="file" name="media{{ $j }}" class="js-img js-repl">
                 <img src="{{ imgLarge($media->link, $media->object) }}" alt="">
             </div>
         </div>
@@ -30,22 +30,21 @@
             <div class="form-group row">
                 <label class="col-sm-4 form-control-label">Название</label>
                 <div class="col-sm-8">
-                    <input class="form-control js-repl" type="text"
-                           name="media[{{ $j }}][title]"
-                           placeholder="Название картинки"
-                           value="{{ old('media[' . $j . '][title]', $media->title) }}">
+                    <input type="text" name="media[{{ $j }}][title]" class="form-control js-repl"
+                           value="{{ old('media[' . $j . '][title]', $media->title) }}"
+                           placeholder="Название картинки">
                 </div>
             </div>
             <div class="form-group row mandatory">
                 <label class="col-sm-4 form-control-label">Место размещения</label>
                 <div class="col-sm-8">
-                    <select class="form-select js-repl" required="required" name="media[{{ $j }}][placement]">
+                    <select name="media[{{ $j }}][placement]" class="form-select js-repl" required="required">
                         <option value=''>Расположение картинки</option>
-                    @foreach($placements as $key => $optionItem)
+                        @foreach($placements as $key => $optionItem)
                         <option value="{{ $key }}"{{ $media->pivot->placement === $key ? ' selected' : ''}}>
                             {{ $optionItem }}
                         </option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>

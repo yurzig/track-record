@@ -36,11 +36,10 @@ $page = 'admin.tasks.projects.';
             {!! projects()->menuTree($project->id) !!}
         </div>
         <div class="col-lg-8 ps-2">
-            <form id="edit-form" class="item w-100" method="POST" enctype="multipart/form-data"
+            <form method="POST" id="edit-form" class="item w-100" enctype="multipart/form-data"
                   action="{{ route($page . 'update', $project) }}" novalidate>
                 @csrf
                 @method('PATCH')
-
 
                 <div class="col-lg-12 catalog-content">
                     <div class="row">
@@ -49,13 +48,13 @@ $page = 'admin.tasks.projects.';
                             <div class="navbar-content">
                                 <ul class="nav nav-tabs flex-row flex-wrap d-flex box" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" type="button"
+                                        <button type="button" id="basic-tab" class="nav-link active" data-bs-toggle="tab"
                                                 role="tab" data-bs-target="#basic" aria-controls="basic" aria-selected="true">
                                             Основные данные
                                         </button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="other-tab" data-bs-toggle="tab" type="button" role="tab"
+                                        <button type="button" id="other-tab" class="nav-link" data-bs-toggle="tab" role="tab"
                                                 data-bs-target="#other" aria-controls="other" aria-selected="false">
                                             Прочие данные
                                         </button>
@@ -74,18 +73,17 @@ $page = 'admin.tasks.projects.';
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-2 form-control-label">Название</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="text"
-                                                           name="title"
-                                                           placeholder="Название категории"
+                                                    <input type="text" name="title" class="form-control"
                                                            value="{{ old('title', $project->title) }}"
-                                                           required="required">
+                                                           required="required"
+                                                           placeholder="Название категории">
                                                 </div>
                                                 <div class="col-sm-12 help-text">{{ $help['title'] }}</div>
                                             </div>
                                             <div class="form-group row mandatory">
                                                 <label class="col-sm-2 form-control-label">Родитель</label>
                                                 <div class="col-sm-10">
-                                                    <select class="form-select" required="required" name="parent_id">
+                                                    <select name="parent_id" class="form-select" required="required">
                                                         <option value="0">0-й уровень</option>
                                                         {!! projects()->selectTree($project->parent_id) !!}
                                                     </select>
