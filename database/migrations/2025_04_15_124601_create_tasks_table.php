@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('project_id')->references('id')->on('tasks_projects')->onDelete('CASCADE');
             $table->foreignId('section_id')->references('id')->on('tasks_sections')->onDelete('CASCADE');
+            $table->foreignId('parent_id');
             $table->string('title');
             $table->text('description')->fulltext()->nullable();
             $table->timestamp('date_start')->nullable();

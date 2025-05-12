@@ -4,7 +4,7 @@ $help = [
     'parent_id' => '',
 ];
 $pageName = 'Новый проект';
-$page = 'admin.tasks.projects.';
+$page = 'admin.task.projects.';
 ?>
 
 @extends('layouts.admin')

@@ -5,6 +5,7 @@ namespace App\ServicesYz;
 use App\Models\Blog\PostCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -135,7 +136,7 @@ class PostCategoriesService
     /**
      * Получить список категорий для вывода в выпадающем списке
      */
-    public function getForSelect(): array
+    public function getForSelect(): Collection
     {
 
         return PostCategory::select('id', 'title')->toBase()->get();

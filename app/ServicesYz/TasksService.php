@@ -105,7 +105,7 @@ class TasksService extends Service
         }
 
         return redirect()
-            ->route('admin.tasks.task.index')
+            ->route('admin.tasks.index')
             ->with(['success' => "Удалена запись id[$item->id] - $item->title"]);
     }
 

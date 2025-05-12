@@ -11,9 +11,6 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    public int $id;
-    public string $title;
-
     protected $fillable = [
         'category_id',
         'user_id',

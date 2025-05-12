@@ -8,6 +8,7 @@ use App\Yz\Services\Traits\ACTIONS;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use App\Yz\Services\Service;
 use Illuminate\Validation\ValidationException;
@@ -162,7 +163,7 @@ class PostsService extends Service
     /**
      * Получить список постов для вывода в выпадающем списке
      */
-    public function getForSelect(): array
+    public function getForSelect(): Collection
     {
 
         return Post::select('id', 'title')->toBase()->get();

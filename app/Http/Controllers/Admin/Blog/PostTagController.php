@@ -85,7 +85,7 @@ class PostTagController extends Controller
     /**
      * Сохранение в сессии примененных фильтров.
      */
-    private function filter(Request $request): RedirectResponse
+    public function filter(Request $request): RedirectResponse
     {
         postTags()->setFilters($request->filters);
 

@@ -28,7 +28,7 @@ if (in_array('project_id',$columns)) {
 }
 
 $pageName = 'Разделы';
-$page = 'admin.tasks.sections.';
+$page = 'admin.task.sections.';
 ?>
 @extends('layouts.admin')
 

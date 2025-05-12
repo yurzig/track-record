@@ -2,17 +2,18 @@
 
 namespace App\ServicesYz;
 
-use App\Models\Tasks\TasksSection;
+use App\Models\Tasks\TaskSection;
 use App\Yz\Services\Service;
 use App\Yz\Services\Traits\ActionAfterSaving;
 use App\Yz\Services\Traits\ACTIONS;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 
-class TasksSectionsService extends Service
+class TaskSectionsService extends Service
 {
     use ACTIONS, ActionAfterSaving;
 
@@ -24,7 +25,7 @@ class TasksSectionsService extends Service
         $filter = self::getFilters();
         $sort = self::getSort(['id', 'asc']);
 
-        $query = TasksSection::query();
+        $query = TaskSection::query();
 
         if($filter) {
             foreach ($filter['val'] as $key => $item) {
@@ -48,7 +49,7 @@ class TasksSectionsService extends Service
 
         $this->saveValidate($data);
 
-        $section = (new TasksSection())->create($data);
+        $section = (new TaskSection())->create($data);
 
         if (!$section) {
 
@@ -61,7 +62,7 @@ class TasksSectionsService extends Service
     /**
      * Обновить раздел
      */
-    public function update(Request $request, TasksSection $section): RedirectResponse
+    public function update(Request $request, TaskSection $section): RedirectResponse
     {
         if (empty($section)) {
 
@@ -88,7 +89,7 @@ class TasksSectionsService extends Service
      * Удалить раздел
      */
     //todo проверить наличие задач перед удалением раздела
-    public function delete (TasksSection $section): RedirectResponse
+    public function delete (TaskSection $section): RedirectResponse
     {
         $item = $section;
 
@@ -100,7 +101,7 @@ class TasksSectionsService extends Service
         }
 
         return redirect()
-            ->route('admin.tasks.sections.index')
+            ->route('admin.task.sections.index')
             ->with(['success' => "Удалена запись id[$item->id] - $item->title"]);
     }
 
@@ -119,16 +120,16 @@ class TasksSectionsService extends Service
     /**
      * Получить список разделов для вывода в выпадающем списке
      */
-    public function getForSelect(): array
+    public function getForSelect(): Collection
     {
 
-        return TasksSection::select('id', 'title')->toBase()->get();
+        return TaskSection::select('id', 'title')->toBase()->get();
     }
 
     /**
         Получить цвет из поля properties
      */
-    public function getColor(TasksSection $tasksSection): string
+    public function getColor(TaskSection $tasksSection): string
     {
         if(is_null($tasksSection->properties)) {
 

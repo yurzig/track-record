@@ -2,21 +2,23 @@
 
 namespace App\ServicesYz;
 
-use App\Models\Tasks\TasksProject;
+use App\Models\Tasks\TaskProject;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 
-class TasksProjectsService
+
+class TaskProjectsService
 {
     /**
      * Получить список проектов в виде дерева методом Tommy Lacroix
      */
     public function getTree(): array
     {
-        $projects = TasksProject::select('id', 'title', 'parent_id')
+        $projects = TaskProject::select('id', 'title', 'parent_id')
             ->orderBy('sort')
             ->toBase()
             ->get();
@@ -46,20 +48,20 @@ class TasksProjectsService
         $data = $request->input();
         $this->saveValidate($data);
 
-        $project = (new TasksProject())->create($data);
+        $project = (new TaskProject())->create($data);
 
         if (!$project) {
 
             return back()->withErrors(['msg' => 'Ошибка сохранения'])->withInput();
         }
 
-        return to_route('admin.tasks.projects.edit', $project)->with(['success' => 'Успешно сохранено']);
+        return to_route('admin.task.projects.edit', $project)->with(['success' => 'Успешно сохранено']);
     }
 
     /**
      * Обновить проект
      */
-    public function update(Request $request, TasksProject $project): RedirectResponse
+    public function update(Request $request, TaskProject $project): RedirectResponse
     {
         if (empty($project)) {
 
@@ -79,13 +81,13 @@ class TasksProjectsService
             return back()->withErrors(['msg' => 'Ошибка сохранения'])->withInput();
         }
 
-        return to_route('admin.tasks.projects.edit', $project)->with(['success' => 'Успешно сохранено']);
+        return to_route('admin.task.projects.edit', $project)->with(['success' => 'Успешно сохранено']);
     }
 
     /**
      * Удалить проект
      */
-    public function delete (TasksProject $project): RedirectResponse
+    public function delete (TaskProject $project): RedirectResponse
     {
 
         $result = $project->delete();
@@ -93,7 +95,7 @@ class TasksProjectsService
         if ($result) {
 
             return redirect()
-                ->route('admin.tasks.projects.index')
+                ->route('admin.task.projects.index')
                 ->with(['success' => "Удалена запись id[$project->id] - $project->title"]);
         }
 
@@ -127,10 +129,10 @@ class TasksProjectsService
     /**
      * Получить список проектов для вывода в выпадающем списке
      */
-    public function getForSelect(): array
+    public function getForSelect(): Collection
     {
 
-        return TasksProject::select('id', 'title')->toBase()->get();
+        return TaskProject::select('id', 'title')->toBase()->get();
     }
 
     /**
@@ -176,7 +178,7 @@ class TasksProjectsService
     public function menuTree(int $active_id): string
     {
         $level = 1;
-        $string = '<ul class="menu-tree node" data-level="' . $level . '" data-id="0" data-url="' . route("admin.tasks.projects.sortable") . '">';
+        $string = '<ul class="menu-tree node" data-level="' . $level . '" data-id="0" data-url="' . route("admin.task.projects.sortable") . '">';
 
         $string .= self::menuItems(projects()->getTree(), $active_id, $level);
 
@@ -203,16 +205,16 @@ class TasksProjectsService
                 <div class="menu-tree-line d-flex justify-content-between">
                     <div>
                         <a class="btn fa act-add"
-                            href="' . route('admin.tasks.projects.add', $project['id']) . '"
+                            href="' . route('admin.task.projects.add', $project['id']) . '"
                             title="Новая запись">
                         </a>
                         <a class="menu-tree-text"
-                            href="' . route('admin.tasks.projects.edit', $project['id']) . '"
+                            href="' . route('admin.task.projects.edit', $project['id']) . '"
                             title="Редактировать">' . $project['title'] . '</a>
                     </div>
                     <div>
                         <a class="btn fa act-delete js-delete"
-                            href="' . route('admin.tasks.projects.destroy', $project['id']) . '"
+                            href="' . route('admin.task.projects.destroy', $project['id']) . '"
                             title="Удалить запись"></a>
                     </div>
                 </div>';
@@ -235,7 +237,7 @@ class TasksProjectsService
         $ids = explode(',', rtrim($data->ids, ','));
 
         foreach ($ids as $key => $id) {
-            TasksProject::find($id)->update(['parent_id' => $parent_id, 'sort' => $key]);
+            TaskProject::find($id)->update(['parent_id' => $parent_id, 'sort' => $key]);
         }
     }
 

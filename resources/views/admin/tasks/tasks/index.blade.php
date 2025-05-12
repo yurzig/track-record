@@ -3,6 +3,7 @@ $fields = [
     ['name' => 'Id',               'dbName' => 'id',          'type' => 'text',   'op' => '=',    'class' => ''],
     ['name' => 'Проект',           'dbName' => 'project_id',  'type' => 'select', 'op' => '=',    'class' => ''],
     ['name' => 'Раздел',           'dbName' => 'section_id',  'type' => 'select', 'op' => '=',    'class' => ''],
+    ['name' => 'Родит. задача',    'dbName' => 'parent_id',   'type' => 'select', 'op' => '=',    'class' => ''],
     ['name' => 'Наименование',     'dbName' => 'title',       'type' => 'text',   'op' => 'like', 'class' => ' class=js-title'],
     ['name' => 'Описание',         'dbName' => 'description', 'type' => 'text',   'op' => 'like', 'class' => ''],
     ['name' => 'Дата начала',      'dbName' => 'date_start',  'type' => 'text',   'op' => '=',    'class' => ' class=flatpickr-input'],

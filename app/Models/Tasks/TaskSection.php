@@ -6,13 +6,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TasksSection extends Model
+class TaskSection extends Model
 {
     use SoftDeletes;
-
-    public int $id;
-    public string $title;
-    public mixed $properties;
 
     protected $casts = [
         'properties' => 'json',

@@ -10,9 +10,6 @@ class PostCategory extends Model
 {
     use SoftDeletes;
 
-    public int $id;
-    public string $title;
-
     protected $fillable = [
         'parent_id',
         'title',

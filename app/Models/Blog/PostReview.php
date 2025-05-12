@@ -10,9 +10,6 @@ class PostReview extends Model
 {
     use SoftDeletes;
 
-    public int $id;
-    public mixed $post;
-
     protected $fillable = [
         'post_id',
         'user_id',

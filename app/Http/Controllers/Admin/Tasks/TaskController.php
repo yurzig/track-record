@@ -85,7 +85,7 @@ class TaskController extends Controller
     /**
      * Сохранение в сессии примененных фильтров.
      */
-    private function filter(Request $request): RedirectResponse
+    public function filter(Request $request): RedirectResponse
     {
         tasks()->setFilters($request->filters);
 

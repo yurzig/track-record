@@ -70,6 +70,7 @@ $page = 'admin.tasks.';
                                             </div>
                                             <div class="col-sm-12 help-text">{{ $help['project_id'] }}</div>
                                         </div>
+{{--                                        TODO выводить разделы принадлежащие проекту --}}
                                         <div class="form-group row mandatory">
                                             <label class="col-sm-4 form-control-label">Раздел</label>
                                             <div class="col-sm-8">

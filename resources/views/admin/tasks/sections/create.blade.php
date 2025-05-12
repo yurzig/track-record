@@ -7,7 +7,7 @@ $help = [
 ];
 
 $pageName = 'Новый раздел';
-$page = 'admin.tasks.sections.';
+$page = 'admin.task.sections.';
 ?>
 
 @extends('layouts.admin')

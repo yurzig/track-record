@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tasks\TasksSection;
+use App\Models\Tasks\TaskSection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class TasksSectionController extends Controller
+class TaskSectionController extends Controller
 {
     private int $perPage;
 
@@ -48,7 +48,7 @@ class TasksSectionController extends Controller
     /**
      * Редактирование раздела (форма)
      */
-    public function edit(TasksSection $section): View
+    public function edit(TaskSection $section): View
     {
 
         return view('admin.tasks.sections.edit', compact('section'));
@@ -57,7 +57,7 @@ class TasksSectionController extends Controller
     /**
      * Редактирование раздела (сохранение)
      */
-    public function update(Request $request, TasksSection $section): RedirectResponse
+    public function update(Request $request, TaskSection $section): RedirectResponse
     {
 
         return sections()->update($request, $section);
@@ -67,7 +67,7 @@ class TasksSectionController extends Controller
      * Удаление раздела.
      */
     // TODO проверить существование задач в разделе
-    public function destroy(TasksSection $section): RedirectResponse
+    public function destroy(TaskSection $section): RedirectResponse
     {
 
         return sections()->delete($section);
@@ -80,17 +80,17 @@ class TasksSectionController extends Controller
     {
         Sections()->setColumns($request->fields);
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.task.sections.index');
     }
 
     /**
      * Сохранение в сессии примененных фильтров.
      */
-    private function filter(Request $request): RedirectResponse
+    public function filter(Request $request): RedirectResponse
     {
         sections()->setFilters($request->filters);
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.task.sections.index');
     }
 
     /**
@@ -100,7 +100,7 @@ class TasksSectionController extends Controller
     {
         sections()->resetFilters();
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.task.sections.index');
     }
 
     /**
@@ -110,7 +110,7 @@ class TasksSectionController extends Controller
     {
         sections()->setSort($request);
 
-        return to_route('admin.tasks.sections.index');
+        return to_route('admin.task.sections.index');
     }
 
 }

@@ -26,6 +26,6 @@ trait Filters
      */
     public function resetFilters(): void
     {
-        session([str($this->getModel())->snake() . '_filter' => []]);
+        session([str($this->getModel())->snake() . '_filters' => []]);
     }
 }

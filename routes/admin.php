@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\Blog\PostReviewController;
 use App\Http\Controllers\Admin\Blog\PostTagController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\Tasks\TaskController;
-use App\Http\Controllers\Admin\Tasks\TasksSectionController;
+use App\Http\Controllers\Admin\Tasks\TaskSectionController;
 
 Route::group(
     [
@@ -53,17 +53,17 @@ Route::group(
         'namespace' => 'App\Http\Controllers\Admin\Tasks'
     ],
     function () {
-        Route::get('projects/add/{parent}', 'TasksProjectController@add')->name('tasks.projects.add');
-        Route::post('projects/sortable', 'TasksProjectController@sortable')->name('tasks.projects.sortable');
-        Route::resource('projects', 'TasksProjectController')->except(['show', 'create'])->names('tasks.projects');
+        Route::get('projects/add/{parent}', 'TaskProjectController@add')->name('task.projects.add');
+        Route::post('projects/sortable', 'TaskProjectController@sortable')->name('task.projects.sortable');
+        Route::resource('projects', 'TaskProjectController')->except(['show', 'create'])->names('task.projects');
 
-        Route::controller(TasksSectionController::class)->group(function () {
-            Route::post('sections/columns', 'columns')->name('tasks.sections.columns');
-            Route::post('sections/filter', 'filter')->name('tasks.sections.filter');
-            Route::get('sections/reset', 'resetFilters')->name('tasks.sections.reset');
-            Route::get('sections/sort', 'sort')->name('tasks.sections.sort');
+        Route::controller(TaskSectionController::class)->group(function () {
+            Route::post('sections/columns', 'columns')->name('task.sections.columns');
+            Route::post('sections/filter', 'filter')->name('task.sections.filter');
+            Route::get('sections/reset', 'resetFilters')->name('task.sections.reset');
+            Route::get('sections/sort', 'sort')->name('task.sections.sort');
         });
-        Route::resource('sections', 'TasksSectionController')->except(['show'])->names('tasks.sections');
+        Route::resource('sections', 'TaskSectionController')->except(['show'])->names('task.sections');
 
         Route::controller(TaskController::class)->group(function () {
             Route::post('tasks/columns', 'columns')->name('tasks.columns');

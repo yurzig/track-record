@@ -39,19 +39,19 @@ $menuItems = [
     'task' => [
         'name' => 'Задачи',
         'class' => 'fa-cube',
-        'url' => 'tasks',
+        'url' => 'task',
         'role' => 'admin',
         'submenu' => [
             'task.projects' => [
                 'name' => 'Проекты',
                 'class' => 'fa-sitemap',
-                'url' => route('admin.tasks.projects.index'),
+                'url' => route('admin.task.projects.index'),
                 'role' => 'admin',
             ],
             'task.sections' => [
                 'name' => 'Разделы',
                 'class' => 'fa-cube',
-                'url' => route('admin.tasks.sections.index'),
+                'url' => route('admin.task.sections.index'),
                 'role' => 'admin',
             ],
             'tasks' => [
