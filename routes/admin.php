@@ -71,7 +71,7 @@ Route::group(
             Route::get('tasks/reset', 'resetFilters')->name('tasks.reset');
             Route::get('tasks/sort', 'sort')->name('tasks.sort');
         });
-        Route::resource('tasks', 'TaskController')->except(['show'])->names('tasks');
+        Route::resource('tasks', 'UserTaskController')->except(['show'])->names('tasks');
     }
 );
 

@@ -18,6 +18,8 @@ use App\Yz\Debug\Controllers\TestController;
 Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/debug/test', [TestController::class, 'index'])->name('debug.test');
 
+Route::get('/task', '\App\Http\Controllers\User\Task\UserTaskController@index')->name('user.task');
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});

@@ -7,4 +7,8 @@
 
 @section('content')
     <h1>Привет!!!</h1>
+    <br>
+    <a class="btn" href="{{ route('user.task') }}" title="Блок задач">
+        Задачи
+    </a>
 @endsection
