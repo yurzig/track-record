@@ -8,17 +8,17 @@
     <title>{{ config('app.name') }} @yield('title')</title>
 
     <!-- Styles -->
-    {{--    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">--}}
-{{--    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">--}}
+{{--        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 {{--    <link rel="stylesheet" href="{{ asset('css/flatpickr.min.css') }}">--}}
 {{--    <link rel="stylesheet" href="{{ asset('css/summernote-lite.min.css') }}">--}}
 {{--    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">--}}
 {{--    @vite('resources/css/select2-yz.css')--}}
-{{--    @vite('resources/css/admin.css')--}}
+    @vite('resources/css/admin.css')
 
     @stack('styles')
 
-    {{--    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">--}}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     {{--    <link rel="stylesheet" href="{{ asset('css/common.css') }}">--}}
     {{--    <link rel="stylesheet" href="{{ asset('css/menu.css') }}">--}}
     {{--    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">--}}
