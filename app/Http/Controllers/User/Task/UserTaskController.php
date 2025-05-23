@@ -8,6 +8,6 @@ class UserTaskController
 {
     public function index(): View
     {
-        return view('user.task.index');
+        return view('user.task.pages.index');
     }
 }
